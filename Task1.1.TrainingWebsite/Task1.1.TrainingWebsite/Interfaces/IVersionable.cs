@@ -8,7 +8,7 @@ namespace Task1._1.TrainingWebsite.Interfaces
 {
     public interface IVersionable
     {
-        byte[] Version { get; set; }
-
+        byte[] ReadVersion();
+        void SetVersion(byte[] version);
     }
 }

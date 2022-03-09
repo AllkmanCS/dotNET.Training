@@ -24,10 +24,6 @@ namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
                 _text = value;
             }
         }
-        public TextMaterial()
-        {
-
-        }
         public TextMaterial(string text)
         {
             Text = text;

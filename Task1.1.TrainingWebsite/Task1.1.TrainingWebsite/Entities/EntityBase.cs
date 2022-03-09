@@ -12,7 +12,7 @@ namespace Task1._1.TrainingWebsite.Entities
         public Guid? Id { get; set; }
         private const int _maxCapacity = 256;
         private string _description;
-        public string? Description
+        public string Description
         {
             get
             {
@@ -38,7 +38,6 @@ namespace Task1._1.TrainingWebsite.Entities
         {
             var other = obj as EntityBase;
             if (obj == null) return false;
-            if (obj.GetType() != typeof(EntityBase)) return false;
             return this.Id == other.Id;
         }
     }

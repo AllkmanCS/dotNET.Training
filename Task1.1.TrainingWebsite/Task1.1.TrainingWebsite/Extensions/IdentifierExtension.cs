@@ -12,7 +12,9 @@ namespace Task1._1.TrainingWebsite.Extensions
         internal static void AssignGuid(this EntityBase entity)
         {
             Guid guid = Guid.NewGuid();
-            entity.Id = guid;
+            if (entity.Id == null) entity.Id = guid;
+            else throw new InvalidOperationException();
+
         }
     }
 }
