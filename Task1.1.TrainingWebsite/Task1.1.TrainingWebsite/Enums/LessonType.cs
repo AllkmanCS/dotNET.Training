@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task1._1.TrainingWebsite.Entities
+namespace Task1._1.TrainingWebsite.Enums
 {
-    internal class NetworkResource
+    internal enum LessonType
     {
+        VideoLesson,
+        TextLesson
     }
 }
