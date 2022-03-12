@@ -13,30 +13,33 @@ namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
         private string _videoContentUri;
         private string _splashScreenUri;
         private readonly VideoFormat _videoFormat;
-        public VideoMaterial(string description, string videoContentURI, string splashScreenURI, VideoFormat videoFormat):base(description)
+        private ulong _version;
+        public byte[] ReadVersion(ulong version)
+        {
+            return BitConverter.GetBytes(_version);
+        }
+        public ulong SetVersion(ulong version)
+        {
+            return _version = version;
+        }
+        public VideoMaterial(string description, string videoContentURI, string splashScreenURI, VideoFormat videoFormat, ulong version) : base(description)
         {
             Description = description;
-            _videoContentUri = videoContentURI;
+            if (!string.IsNullOrEmpty(videoContentURI))
+            {
+                _videoContentUri = videoContentURI;
+            }
             _splashScreenUri = splashScreenURI;
             _videoFormat = videoFormat;
+            _version = version;
         }
         public override object Clone()
         {
-            return new VideoMaterial(this.Description, this._videoContentUri, this._splashScreenUri, this._videoFormat);
+            return new VideoMaterial(this.Description, this._videoContentUri, this._splashScreenUri, this._videoFormat, this._version);
         }
         public override string ToString()
         {
             return $"{Description}";
-        }
-
-        public byte[] ReadVersion()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetVersion(byte[] version)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -24,18 +24,17 @@ namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
                 _text = value;
             }
         }
-        public TextMaterial(string text)
+        public TextMaterial(string description, string text): base(description)
         {
-            Text = text;
-        }
-        public TextMaterial(string text, string description)
-        {
-            Text = text;
             Description = description;
+            if (!string.IsNullOrEmpty(text))
+            {
+                Text = text;
+            }
         }
         public override object Clone()
         {
-            return new TextMaterial(_text);
+            return new TextMaterial(this.Description, this._text);
         }
         public override string ToString()
         {

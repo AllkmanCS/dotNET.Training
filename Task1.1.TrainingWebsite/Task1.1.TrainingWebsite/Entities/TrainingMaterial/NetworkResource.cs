@@ -9,17 +9,21 @@ namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
 {
     internal class NetworkResource : EntityBase
     {
-        private string _contentUri;
+
+        private string _linkToNetworkResource;
         private readonly LinkType _linkType;
-        public NetworkResource(string description, string contentUri, LinkType linkType):base(description)
+        public NetworkResource(string description, string linkToNetworkResource, LinkType linkType) : base(description)
         {
             Description = description;
-            _contentUri = contentUri;
+            if (!string.IsNullOrEmpty(linkToNetworkResource))
+            {
+                _linkToNetworkResource = linkToNetworkResource;
+            }
             _linkType = linkType;
         }
         public override object Clone()
         {
-            return new NetworkResource(this.Description, this._contentUri, this._linkType);
+            return new NetworkResource(this.Description, this._linkToNetworkResource, this._linkType);
         }
         public override string ToString()
         {

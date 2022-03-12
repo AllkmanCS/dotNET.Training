@@ -29,10 +29,6 @@ namespace Task1._1.TrainingWebsite.Entities
         {
             Description = description;
         }
-        public EntityBase()
-        {
-
-        }
         public abstract object Clone();
         public override bool Equals(object? obj)
         {
