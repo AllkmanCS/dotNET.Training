@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Task1._1.TrainingWebsite.Enums;
+using Task1._1.TrainingWebsite.Extensions;
 
 namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
 {
@@ -23,7 +24,9 @@ namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
         }
         public override object Clone()
         {
-            return new NetworkResource(this.Description, this._linkToNetworkResource, this._linkType);
+            var networkResourceClone = new NetworkResource(this.Description, this._linkToNetworkResource, this._linkType);
+            networkResourceClone.AssignGuid();
+            return networkResourceClone;
         }
         public override string ToString()
         {

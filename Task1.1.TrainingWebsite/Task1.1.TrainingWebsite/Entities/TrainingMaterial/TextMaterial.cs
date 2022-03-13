@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task1._1.TrainingWebsite.Extensions;
 
 namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
 {
@@ -34,7 +35,9 @@ namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
         }
         public override object Clone()
         {
-            return new TextMaterial(this.Description, this._text);
+            var textMaterialClone = new TextMaterial(this.Description, this._text);
+            textMaterialClone.AssignGuid();
+            return textMaterialClone;
         }
         public override string ToString()
         {

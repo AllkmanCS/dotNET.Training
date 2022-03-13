@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Task1._1.TrainingWebsite.Enums;
+using Task1._1.TrainingWebsite.Extensions;
 using Task1._1.TrainingWebsite.Interfaces;
 
 namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
@@ -35,7 +36,9 @@ namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
         }
         public override object Clone()
         {
-            return new VideoMaterial(this.Description, this._videoContentUri, this._splashScreenUri, this._videoFormat, this._version);
+            var videoMaterialClone = new VideoMaterial(this.Description, this._videoContentUri, this._splashScreenUri, this._videoFormat, this._version);
+            videoMaterialClone.AssignGuid();
+            return videoMaterialClone;
         }
         public override string ToString()
         {
