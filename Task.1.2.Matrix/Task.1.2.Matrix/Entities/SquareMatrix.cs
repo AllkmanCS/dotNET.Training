@@ -8,51 +8,50 @@ namespace Task._1._2.Matrix.Entities
 {
     internal class SquareMatrix<T>
     {
-        private T?[] _matrixElements;
+        private struct Key
+        {
+            public int RowIndex { get; set; }
+            public int ColumnIndex { get; set; }
+            public Key(int rowIndex, int columnIndex)
+            {
+                RowIndex = rowIndex;
+                ColumnIndex = columnIndex;
+            }
+        }
         private int _size;
+        private Dictionary<Key, T> _cells = new Dictionary<Key, T>();
+        private T?[] _matrixElements;
         public T? this[int i, int j]
         {
             get
             {
-                if (i < 0 && j < 0 || i >= _size && j >= _size) // dont allow negative
-                {
-                    throw new IndexOutOfRangeException();
-                }
-                
-                return _matrixElements[i];
+                var key = new Key(i, j);
+                T? value;
+                return _cells.TryGetValue(key, out value) ? value : default;
             }
             set
             {
-                _matrixElements[i] = value;
+                var key = new Key(i, j);
+                _cells[key] = value;
             }
         }
-        public SquareMatrix(params T[] matrixElements)
+        public SquareMatrix(int size)
         {
-            if (matrixElements.Length < 0)
-            {
-                throw new ArgumentException();
-            }
-            else
-            {
-                _size = matrixElements.Length;
-                _matrixElements = new T[_size];
-                Array.Copy(_matrixElements, 0, _matrixElements, 0, _size);
-            }
-            _matrixElements = matrixElements;
+            _size = size >= 0 ? size : throw new ArgumentException();
         }
         public override string ToString()
         {
             var sb = new StringBuilder();
-            if (_matrixElements.Length == 0)
+            if (_size == 0)
             {
                 return string.Empty;
             }
-            for (int i = 0; i < _matrixElements.Length; i++)
+            for (int row = 0; row < _size; row++)
             {
                 sb.AppendLine();
-                for (int j = 0; j < _matrixElements.Length; j++)
+                for (int column = 0; column < _size; column++)
                 {
-                    sb.Append(this[i, j]);
+                    sb.Append(this[row, column]);
                 }
             }
             return sb.ToString();
