@@ -37,9 +37,12 @@ namespace Task._1._2.Matrix.Entities
                 }
                 if (i >= 0 && j >= 0 || i <= _size && j <= _size || i == j)
                 {
-                    T? previousValue = _matrixElements[i];
-                    _matrixElements[i] = value; //newValue
-                    OnElementChanged(new ElementChangedEventArgs<T>(i, previousValue, value));
+                    T? oldValue = _matrixElements[i];
+                    _matrixElements[i] = value;
+                    if (!EqualityComparer<T>.Default.Equals(oldValue, value))
+                    {
+                        OnElementChanged(new ElementChangedEventArgs<T>(i, oldValue, value));
+                    }
                 }
             }
         }

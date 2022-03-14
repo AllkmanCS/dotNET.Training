@@ -12,10 +12,9 @@ namespace Task._1._2.Matrix.Entities
         {
             Index = index;
             OldValue = oldValue;
-            NewValue = newValue;
         }
+
         public int Index { get; set; }
         public T? OldValue { get; set; }
-        public T? NewValue { get; set; }
     }
 }
