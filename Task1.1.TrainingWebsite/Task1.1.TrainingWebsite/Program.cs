@@ -12,7 +12,6 @@ try
     training.SetVersion(trainingVersion);
     byte[] trainingVersionArray = training.ReadVersion(trainingVersion);
     Console.WriteLine(string.Join(".", trainingVersionArray)); 
-    training.AssignGuid();
     #endregion
 
     #region textMaterial data
@@ -58,8 +57,6 @@ N9x8vwiep8Pn3zYfCWtGttxceDKUjdj6sdDFK
     #endregion
 
     #region TrainingWebsite testing
-    //assign Guid to entity
-    textMaterial.AssignGuid();
     Console.WriteLine(textMaterial.Id);
     Console.WriteLine(textMaterial.Equals(textMaterial)); //true
     training.Add(textMaterial); // [0]

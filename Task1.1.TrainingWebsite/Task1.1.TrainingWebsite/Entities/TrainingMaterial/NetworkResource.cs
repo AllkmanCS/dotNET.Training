@@ -21,10 +21,12 @@ namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
                 _linkToNetworkResource = linkToNetworkResource;
             }
             _linkType = linkType;
+            this.AssignGuid();
         }
         public override object Clone()
         {
             var networkResourceClone = new NetworkResource(this.Description, this._linkToNetworkResource, this._linkType);
+            networkResourceClone.Id = null;
             networkResourceClone.AssignGuid();
             return networkResourceClone;
         }

@@ -30,6 +30,7 @@ namespace Task1._1.TrainingWebsite.Entities
         public TrainingLesson(string description) : base(description)
         {
             Description = description;
+            this.AssignGuid();
         }
         public void Add(EntityBase entityBase)
         {
@@ -42,6 +43,7 @@ namespace Task1._1.TrainingWebsite.Entities
             {
                 trainingLessonClone.TrainingMaterials[i] = this.TrainingMaterials[i].Clone() as EntityBase;
             }
+            trainingLessonClone.Id = null;
             trainingLessonClone.AssignGuid();
             trainingLessonClone.SetVersion(_version);
             return trainingLessonClone;

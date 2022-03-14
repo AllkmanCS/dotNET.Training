@@ -32,10 +32,12 @@ namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
             {
                 Text = text;
             }
+            this.AssignGuid();
         }
         public override object Clone()
         {
             var textMaterialClone = new TextMaterial(this.Description, this._text);
+            textMaterialClone.Id = null;
             textMaterialClone.AssignGuid();
             return textMaterialClone;
         }

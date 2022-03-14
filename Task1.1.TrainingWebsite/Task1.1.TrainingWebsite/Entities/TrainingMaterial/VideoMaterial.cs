@@ -33,10 +33,12 @@ namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
             _splashScreenUri = splashScreenURI;
             _videoFormat = videoFormat;
             _version = version;
+            this.AssignGuid();
         }
         public override object Clone()
         {
             var videoMaterialClone = new VideoMaterial(this.Description, this._videoContentUri, this._splashScreenUri, this._videoFormat, this._version);
+            videoMaterialClone.Id = null;
             videoMaterialClone.AssignGuid();
             return videoMaterialClone;
         }
