@@ -1,6 +1,5 @@
 ﻿using Task1.Two.Matrix.Entities;
 #region SquareMatrix testing
-ElementChangedEventArgs<string> eventArgs = new ElementChangedEventArgs<string>();
 var stringSquareMatrix = new SquareMatrix<string>("a", "b");
 stringSquareMatrix.ElementChanged += (s, e) =>
 {
