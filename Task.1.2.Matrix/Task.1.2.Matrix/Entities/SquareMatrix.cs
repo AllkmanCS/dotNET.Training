@@ -6,12 +6,31 @@ using System.Threading.Tasks;
 
 namespace Task._1._2.Matrix.Entities
 {
+    /// <summary>
+    /// A generic class to create data structure in Square matrix
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     internal class SquareMatrix<T>
     {
+        /// <value>
+        /// The <c>_size</c> field represents the size of the generic matrix
+        /// </value>
         private int _size;
+        /// <value>
+        /// The <c>_matrixElements</c> field stores an array of generic types
+        /// </value>
         private T?[] _matrixElements;
+        /// <value>
+        /// The <c>ElementChanged</c> event delegate for when an element in the matrix is changed.
+        /// </value>
         public event EventHandler<ElementChangedEventArgs<T>> ElementChanged;
-
+        /// <summary>
+        /// An indexer of the matrix class that provides the access to specified element in the matrix
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public T? this[int i, int j]
         {
             get
@@ -20,15 +39,7 @@ namespace Task._1._2.Matrix.Entities
                 {
                     throw new IndexOutOfRangeException();
                 }
-                if (i != j)
-                {
-                    return default(T);
-                }
-                else if (i == j)
-                {
-                    return _matrixElements[i];
-                }
-                else return default(T);
+                else return _matrixElements[i];
             }
             set
             {
@@ -42,7 +53,7 @@ namespace Task._1._2.Matrix.Entities
                     _matrixElements[i] = value;
                     if (!EqualityComparer<T>.Default.Equals(oldValue, value))
                     {
-                        OnElementChanged(new ElementChangedEventArgs<T>(i, oldValue, value));
+                        OnElementChanged(new ElementChangedEventArgs<T>(i, oldValue));
                     }
                 }
             }
@@ -60,6 +71,10 @@ namespace Task._1._2.Matrix.Entities
                 Array.Copy(matrixElements, _matrixElements, _size);
             }
         }
+        /// <summary>
+        /// A methos to test matrix class on Program.cs
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -77,9 +92,15 @@ namespace Task._1._2.Matrix.Entities
             }
             return sb.ToString();
         }
+        /// <summary>
+        /// A method to raise an event.
+        /// </summary>
+        /// <param name="e"></param>
+
         protected virtual void OnElementChanged(ElementChangedEventArgs<T> e)
         {
             ElementChanged?.Invoke(this, e);
         }
+
     }
 }
