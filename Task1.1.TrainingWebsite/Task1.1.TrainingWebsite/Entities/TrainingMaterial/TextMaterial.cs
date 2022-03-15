@@ -1,37 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Task1._1.TrainingWebsite.Extensions;
+﻿using System.Text;
+using Task1.One.TrainingWebsite.Extensions;
 
-namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
+namespace Task1.One.TrainingWebsite.Entities.TrainingMaterial
 {
     internal class TextMaterial : EntityBase
     {
         private string _text;
-        private const int _maxCapacity = 1000;
-        public string Text
-        {
-            get
-            {
-                var sb = new StringBuilder(_text.Length, _maxCapacity);
-                sb.Append(_text);
-                return sb.ToString();
-            }
-            set
-            {
-                _text = value;
-            }
-        }
-        public TextMaterial(string description, string text): base(description)
+        private const int _maxLength = 1000;
+        public string Text { get=> _text; set => _text = value; }
+        public TextMaterial(string description, string text) : base(description)
         {
             Description = description;
-            if (!string.IsNullOrEmpty(text))
-            {
-                Text = text;
-            }
+            if (!string.IsNullOrEmpty(text)) 
+                _text = text;
+            
+            if (text.Length >= _maxLength)            
+                _text = text.Substring(0, _maxLength);
+            
             this.AssignGuid();
         }
         public override object Clone()
@@ -41,9 +26,6 @@ namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
             textMaterialClone.AssignGuid();
             return textMaterialClone;
         }
-        public override string ToString()
-        {
-            return $"{Description}";
-        }
+        public override string ToString() => $"{Description}";
     }
 }

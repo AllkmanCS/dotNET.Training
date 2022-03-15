@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Task1._1.TrainingWebsite.Enums;
-using Task1._1.TrainingWebsite.Extensions;
+﻿using Task1.One.TrainingWebsite.Enums;
+using Task1.One.TrainingWebsite.Extensions;
 
-namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
+namespace Task1.One.TrainingWebsite.Entities.TrainingMaterial
 {
     internal class NetworkResource : EntityBase
     {
-
         private string _linkToNetworkResource;
         private readonly LinkType _linkType;
         public NetworkResource(string description, string linkToNetworkResource, LinkType linkType) : base(description)
         {
             Description = description;
             if (!string.IsNullOrEmpty(linkToNetworkResource))
-            {
                 _linkToNetworkResource = linkToNetworkResource;
-            }
+
+            else throw new NullReferenceException();
             _linkType = linkType;
             this.AssignGuid();
         }
@@ -30,9 +24,6 @@ namespace Task1._1.TrainingWebsite.Entities.TrainingMaterial
             networkResourceClone.AssignGuid();
             return networkResourceClone;
         }
-        public override string ToString()
-        {
-            return $"{Description}";
-        }
+        public override string ToString() => $"{Description}";
     }
 }

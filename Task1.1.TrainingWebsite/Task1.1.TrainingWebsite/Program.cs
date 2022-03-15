@@ -1,30 +1,14 @@
-﻿using Task1._1.TrainingWebsite.Entities;
-using Task1._1.TrainingWebsite.Entities.TrainingMaterial;
-using Task1._1.TrainingWebsite.Enums;
-using Task1._1.TrainingWebsite.Extensions;
+﻿using Task1.One.TrainingWebsite.Entities;
+using Task1.One.TrainingWebsite.Entities.TrainingMaterial;
+using Task1.One.TrainingWebsite.Enums;
 
 try
 {
-    #region TrainingLesson data
-    var trainingDescription = "TextLesson Description";
-    ulong trainingVersion = 1020;
-    var training = new TrainingLesson(trainingDescription);
-    training.SetVersion(trainingVersion);
-    byte[] trainingVersionArray = training.ReadVersion(trainingVersion);
-    Console.WriteLine(string.Join(".", trainingVersionArray)); 
-    #endregion
-
     #region textMaterial data
-    string textMaterialText = @"U4irqg4AF0pCfvCk04f1Q0ZWRlUZsT14mOBzoMAvckqUPuOXJ8Ug
-Jhdu9JYZxA98ZdItAR5plyHKo1q3ksDojfsZI0XVZauP8273xO0Jp39cf2izwmmdA17DKlilLX
-a0PbDceqa7HG9YETXPHk1lJwmsj8cY3JTLY0YjxzTlCjNT8lBrkTVy8SMtrKsADXTeFtORqSqP
-A0MDDzoPnRtwfm6fKAbBJeKbWhcWgLwkAKQL9dcYBlrgsN4898Ca1DZlrqbPF1iRMejL2iMUQ0
-vZg7s23IhUptbJ17DLnO9uoydC4AIdmekSaAj2FojKmg3emqpr1WAkzqhtOW
-zwmPHEQJbVHN85wAGNJj5hKOQuuyouD2LgNq20e3kZ3yxyDWQ0xnDZqxI6ZlpRYkjqY6WesPKF
-N9x8vwiep8Pn3zYfCWtGttxceDKUjdj6sdDFK
-";
-    string textMaterialDescription = "Some text material....";
+    string textMaterialDescription = "Some text material...";
+    string textMaterialText = @"12345678910VERYLongtext....................";
     var textMaterial = new TextMaterial(textMaterialDescription, textMaterialText);
+    Console.WriteLine(textMaterial.Description);
     #endregion
 
     #region NetworkResource data
@@ -49,7 +33,7 @@ N9x8vwiep8Pn3zYfCWtGttxceDKUjdj6sdDFK
     videoMaterial.SetVersion(videoMaterialVersion);
     byte[] videoMaterialVersionArray = videoMaterial.ReadVersion(videoMaterialVersion);
     Console.WriteLine(string.Join(".", videoMaterialVersionArray));
-
+    Console.WriteLine($"VideoMaterial Id:{videoMaterial.Id}");
     var isVideoMaterialUri = Uri.TryCreate(videoMaterialPath, UriKind.Absolute, out createdVideoMaterialUri);
     var isSplashScreenUri = Uri.TryCreate(splashScreenPath, UriKind.Absolute, out createdSplashScreenUri);
     Console.WriteLine($"Video Material URI created: {isVideoMaterialUri}");
@@ -57,11 +41,20 @@ N9x8vwiep8Pn3zYfCWtGttxceDKUjdj6sdDFK
     #endregion
 
     #region TrainingWebsite testing
-    Console.WriteLine(textMaterial.Id);
+    List<EntityBase> trainingMaterials = new List<EntityBase>();
+    string trainingDescription = "TextLesson Description";
+    ulong trainingVersion = 1020;
+    var training = new TrainingLesson(trainingDescription, trainingMaterials, trainingVersion);
+    training.SetVersion(trainingVersion);
+    Console.WriteLine($"TrainingLesson Id:{training.Id}");
+    //simply converting byte array to string
+    byte[] trainingVersionArray = training.ReadVersion(trainingVersion);
+    Console.WriteLine(string.Join(".", trainingVersionArray));
+    Console.WriteLine(training.Description);
     Console.WriteLine(textMaterial.Equals(textMaterial)); //true
-    training.Add(textMaterial); // [0]
-    training.Add(networkResource); // [1]
-    training.Add(videoMaterial); // [2]
+    training.Add(textMaterial);
+    training.Add(networkResource);
+    training.Add(videoMaterial);
     var trainingType = training.GetTrainingType();
     Console.WriteLine($"Training type: {trainingType}");
     #endregion
@@ -72,9 +65,10 @@ N9x8vwiep8Pn3zYfCWtGttxceDKUjdj6sdDFK
     var textMaterialClone = trainingClone.TrainingMaterials[0] as TextMaterial;
     var networkResourceClone = trainingClone.TrainingMaterials[1] as NetworkResource;
     var videoMaterialClone = trainingClone.TrainingMaterials[2] as VideoMaterial;
-    Console.WriteLine($"TextMaterial test for equals vs TextMaterialClone: {textMaterial.Equals(textMaterialClone)}"); 
-    Console.WriteLine($"Clonned Training Description: {trainingClone.Description = "Other TextLesson"}");
+    Console.WriteLine($"TextMaterial test for equals vs TextMaterialClone: {textMaterial.Equals(textMaterialClone)}"); //false
+    Console.WriteLine($"Clonned Training Description: {trainingClone.Description = "Other TrainingLesson"}");
     Console.WriteLine($"Original Training Description: {training.Description}");
+    Console.WriteLine($"Clonned VideoMaterial Description: {videoMaterialClone.Description = "Other VideoMaterial"}");
     Console.WriteLine($"Clonned TextMaterial Description: {textMaterialClone.Description = "Other TextMaterial"}");
     Console.WriteLine($"Clonned NetworkResource Description: {networkResourceClone.Description = "Other Network Resource"}");
     Console.WriteLine($"Clonned VideoMaterial Description: {videoMaterialClone.Description = "Other Video Material"}");
@@ -87,4 +81,8 @@ catch (ArgumentOutOfRangeException)
 catch (InvalidOperationException)
 {
     Console.WriteLine("Cannot assign new Guid if entity already has one assigned");
+}
+catch (NullReferenceException)
+{
+    Console.WriteLine("The resource you tried to access was not found.");
 }

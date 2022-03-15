@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Task1._1.TrainingWebsite.Entities;
+﻿using Task1.One.TrainingWebsite.Entities;
 
-namespace Task1._1.TrainingWebsite.Extensions
+namespace Task1.One.TrainingWebsite.Extensions
 {
     internal static class IdentifierExtension
     {

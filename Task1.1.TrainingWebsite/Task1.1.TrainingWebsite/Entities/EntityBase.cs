@@ -1,35 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
-namespace Task1._1.TrainingWebsite.Entities
+namespace Task1.One.TrainingWebsite.Entities
 {
     internal abstract class EntityBase : ICloneable
     {
         public Guid? Id { get; set; }
-        private const int _maxCapacity = 256;
+        private const int _maxLength = 256;
         private string _description;
-        public string Description
-        {
-            get
-            {
-                var sb = new StringBuilder(_description.Length, _maxCapacity);
-                sb.Append(_description);
-                return sb.ToString();
-            }
-            set
-            {
-                _description = value;
-            }
-        }
+        public string Description { get => _description; set => _description = value; }
         public EntityBase(string description)
         {
-            Description = description;
+            _description = description;
+            if (description.Length >= _maxLength)
+                _description = description.Substring(0, _maxLength);
         }
         public abstract object Clone();
+        public abstract string ToString();
         public override bool Equals(object? obj)
         {
             var other = obj as EntityBase;
