@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task._1._2.Matrix.Entities
+namespace Task1.Two.Matrix.Entities
 {
     /// <summary>
     /// A generic class to create data structure in Diagonal matrix
