@@ -22,10 +22,13 @@ namespace Task1.One.TrainingWebsite.Entities.TrainingMaterial
         {
             Description = description;
             if (!string.IsNullOrEmpty(videoContentURI))
+            {
                 _videoContentUri = videoContentURI;
-
-            else throw new NullReferenceException();
-
+            }
+            else
+            {
+                throw new NullReferenceException();
+            }
             _splashScreenUri = splashScreenURI;
             _videoFormat = videoFormat;
             _version = version;
@@ -40,8 +43,8 @@ namespace Task1.One.TrainingWebsite.Entities.TrainingMaterial
                 this._videoFormat,
                 this._version);
 
-            videoMaterialClone.Id = null;
-            videoMaterialClone.AssignGuid();
+            videoMaterialClone.Id = this.Id;
+            videoMaterialClone._version = this._version;
             return videoMaterialClone;
         }
         public override string ToString() => $"{Description}";

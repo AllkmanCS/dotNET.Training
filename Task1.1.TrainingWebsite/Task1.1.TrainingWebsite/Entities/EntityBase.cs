@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Task1.One.TrainingWebsite.Entities
+﻿namespace Task1.One.TrainingWebsite.Entities
 {
     internal abstract class EntityBase : ICloneable
     {
@@ -12,14 +10,19 @@ namespace Task1.One.TrainingWebsite.Entities
         {
             _description = description;
             if (description.Length >= _maxLength)
+            {
                 _description = description.Substring(0, _maxLength);
+            }
         }
         public abstract object Clone();
         public abstract string ToString();
         public override bool Equals(object? obj)
         {
             var other = obj as EntityBase;
-            if (obj == null) return false;
+            if (obj == null)
+            {
+                return false;
+            }
             return this.Id == other.Id;
         }
     }

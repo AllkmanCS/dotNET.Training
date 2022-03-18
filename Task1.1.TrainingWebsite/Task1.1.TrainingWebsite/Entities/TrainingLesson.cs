@@ -11,10 +11,10 @@ namespace Task1.One.TrainingWebsite.Entities
         private ulong _version;
         public byte[] ReadVersion(ulong version) => BitConverter.GetBytes(_version);
         public ulong SetVersion(ulong version) => _version = version;
-        public TrainingLesson(string description, List<EntityBase> trainingMaterials, ulong version) : base(description)
+        public TrainingLesson(string description, IEnumerable<EntityBase> trainingMaterials, ulong version) : base(description)
         {
             Description = description;
-            TrainingMaterials = trainingMaterials;
+            TrainingMaterials = trainingMaterials.ToList();
             this.AssignGuid();
             _version = version;
         }
@@ -23,11 +23,11 @@ namespace Task1.One.TrainingWebsite.Entities
         {
             var trainingLessonClone = new TrainingLesson(this.Description, this.TrainingMaterials, this._version);
             for (int i = 0; i < TrainingMaterials.Count; i++)
+            {
                 trainingLessonClone.TrainingMaterials[i] = this.TrainingMaterials[i].Clone() as EntityBase;
-            
-            trainingLessonClone.Id = null;
-            trainingLessonClone.AssignGuid();
-            trainingLessonClone.SetVersion(_version);
+            }
+            trainingLessonClone.Id = this.Id;
+            trainingLessonClone._version = this._version;
             return trainingLessonClone;
         }
         public LessonType GetTrainingType() =>

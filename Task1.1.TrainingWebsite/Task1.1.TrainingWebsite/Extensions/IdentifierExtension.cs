@@ -9,7 +9,6 @@ namespace Task1.One.TrainingWebsite.Extensions
             Guid guid = Guid.NewGuid();
             if (entity.Id == null) entity.Id = guid;
             else throw new InvalidOperationException();
-
         }
     }
 }

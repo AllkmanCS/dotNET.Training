@@ -11,17 +11,20 @@ namespace Task1.One.TrainingWebsite.Entities.TrainingMaterial
         {
             Description = description;
             if (!string.IsNullOrEmpty(linkToNetworkResource))
+            {
                 _linkToNetworkResource = linkToNetworkResource;
-
-            else throw new NullReferenceException();
+            }
+            else
+            {
+                throw new NullReferenceException();
+            }
             _linkType = linkType;
             this.AssignGuid();
         }
         public override object Clone()
         {
             var networkResourceClone = new NetworkResource(this.Description, this._linkToNetworkResource, this._linkType);
-            networkResourceClone.Id = null;
-            networkResourceClone.AssignGuid();
+            networkResourceClone.Id = this.Id;
             return networkResourceClone;
         }
         public override string ToString() => $"{Description}";

@@ -32,7 +32,7 @@ try
     var videoMaterial = new VideoMaterial(videoMaterialDescription, videoMaterialPath, splashScreenPath, VideoFormat.Mp4, videoMaterialVersion);
     videoMaterial.SetVersion(videoMaterialVersion);
     byte[] videoMaterialVersionArray = videoMaterial.ReadVersion(videoMaterialVersion);
-    Console.WriteLine(string.Join(".", videoMaterialVersionArray));
+    Console.WriteLine($"Video Material version: {string.Join(".", videoMaterialVersionArray)}");
     Console.WriteLine($"VideoMaterial Id:{videoMaterial.Id}");
     var isVideoMaterialUri = Uri.TryCreate(videoMaterialPath, UriKind.Absolute, out createdVideoMaterialUri);
     var isSplashScreenUri = Uri.TryCreate(splashScreenPath, UriKind.Absolute, out createdSplashScreenUri);
@@ -45,11 +45,11 @@ try
     string trainingDescription = "TextLesson Description";
     ulong trainingVersion = 1020;
     var training = new TrainingLesson(trainingDescription, trainingMaterials, trainingVersion);
-    training.SetVersion(trainingVersion);
     Console.WriteLine($"TrainingLesson Id:{training.Id}");
+    training.SetVersion(trainingVersion);
     //simply converting byte array to string
     byte[] trainingVersionArray = training.ReadVersion(trainingVersion);
-    Console.WriteLine(string.Join(".", trainingVersionArray));
+    Console.WriteLine($"Training Lesson version: {string.Join(".", trainingVersionArray)}");
     Console.WriteLine(training.Description);
     Console.WriteLine(textMaterial.Equals(textMaterial)); //true
     training.Add(textMaterial);
@@ -69,6 +69,7 @@ try
     Console.WriteLine($"Clonned Training Description: {trainingClone.Description = "Other TrainingLesson"}");
     Console.WriteLine($"Original Training Description: {training.Description}");
     Console.WriteLine($"Clonned VideoMaterial Description: {videoMaterialClone.Description = "Other VideoMaterial"}");
+    Console.WriteLine($"Clonned VideoMaterial Id: {videoMaterialClone.Id}");
     Console.WriteLine($"Clonned TextMaterial Description: {textMaterialClone.Description = "Other TextMaterial"}");
     Console.WriteLine($"Clonned NetworkResource Description: {networkResourceClone.Description = "Other Network Resource"}");
     Console.WriteLine($"Clonned VideoMaterial Description: {videoMaterialClone.Description = "Other Video Material"}");
