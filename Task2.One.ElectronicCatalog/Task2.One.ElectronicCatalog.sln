@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2.One.ElectronicCatalog", "Task2.One.ElectronicCatalog\Task2.One.ElectronicCatalog.csproj", "{BECECEB9-96C9-4E61-B6DB-2A1683C8720A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task2.One.ElectronicCatalog", "Task2.One.ElectronicCatalog\Task2.One.ElectronicCatalog.csproj", "{BECECEB9-96C9-4E61-B6DB-2A1683C8720A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{78420499-FC90-4AF0-9DCC-6F50DE99EC29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectronicCatalogTests", "ElectronicCatalogTests\ElectronicCatalogTests.csproj", "{1EEB2C2F-029C-4FE4-960A-6E546ACC8591}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,16 @@ Global
 		{BECECEB9-96C9-4E61-B6DB-2A1683C8720A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BECECEB9-96C9-4E61-B6DB-2A1683C8720A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BECECEB9-96C9-4E61-B6DB-2A1683C8720A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EEB2C2F-029C-4FE4-960A-6E546ACC8591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EEB2C2F-029C-4FE4-960A-6E546ACC8591}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EEB2C2F-029C-4FE4-960A-6E546ACC8591}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EEB2C2F-029C-4FE4-960A-6E546ACC8591}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1EEB2C2F-029C-4FE4-960A-6E546ACC8591} = {78420499-FC90-4AF0-9DCC-6F50DE99EC29}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DED594DD-A12F-4D63-8DE0-A48F71634DA8}

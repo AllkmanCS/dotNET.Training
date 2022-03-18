@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Task2.One.ElectronicCatalog.Entities
 {
-    internal class Author
+    public class Author
     {
         private const int _maxLength = 200;
         private string _firstName;
         private string _lastName;
-
+        public HashSet<Book> Books = new HashSet<Book>();
         public string FirstName
         {
             get => StringLengthValidation(_firstName, _maxLength);
@@ -40,6 +40,13 @@ namespace Task2.One.ElectronicCatalog.Entities
         public override string ToString()
         {
             return $"{FirstName} {LastName}";
+        }
+        public override bool Equals(object? obj)
+        {
+            if (obj == null) return false;
+            if (this.GetType() != obj.GetType()) return false;
+            Author emp = (Author)obj;
+            return (this.FirstName, this.LastName) == (emp.FirstName, emp.LastName);
         }
     }
 }
