@@ -10,7 +10,7 @@ namespace Task1.Two.Matrix.Entities
     /// A generic class to create data structure in Diagonal matrix
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal class DiagonalMatrix<T>
+    internal class DiagonalMatrix<T> : SquareMatrix<T>
     {
         /// <value>
         /// The <c>_size</c> field represents the size of the generic matrix
@@ -36,7 +36,9 @@ namespace Task1.Two.Matrix.Entities
             get
             {
                 if (i < 0 && j < 0 || i >= _size && j >= _size)
+                {
                     throw new IndexOutOfRangeException();
+                }
 
                 if (i != j)
                     return default(T);

@@ -36,16 +36,20 @@ namespace Task1.Two.Matrix.Entities
             get
             {
                 if (i < 0 && j < 0 || i >= _size && j >= _size)
+                {
                     throw new IndexOutOfRangeException();
-                
-                else return _matrixElements[i];
+                }
+                else
+                {
+                    return _matrixElements[j];
+                }
             }
             set
             {
-                if (i < 0 && j < 0 || i >= _size && j >= _size)
-                    throw new IndexOutOfRangeException();
+                //if (i < 0 && j < 0 || i >= _size && j >= _size)
+                //    throw new IndexOutOfRangeException();
                 
-                if (i >= 0 && j >= 0 || i <= _size && j <= _size || i == j)
+                if (i >= 0 && j >= 0 || i <= _size && j <= _size)
                 {
                     T? oldValue = _matrixElements[i];
                     _matrixElements[i] = value;
