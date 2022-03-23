@@ -14,9 +14,6 @@ namespace XMLFileHandler
     {
         private readonly static string xmlFile = "C:/Users/AlgirdasCernevicius/source/repos/dotNET.Training/XMLFileHandler/XMLFileHandler/Config" + @"\config.xml";
         private readonly static string jsonPath = "C:/Users/AlgirdasCernevicius/source/repos/dotNET.Training/XMLFileHandler/XMLFileHandler/Config/";
-        //TODO deserialize +
-        //print invalid 
-        //serialize
         public void DisplayIncorrectLogins()
         {
             var xml = XDocument.Load(xmlFile);
