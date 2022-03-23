@@ -1,0 +1,19 @@
+{
+  "Name": "sarah",
+  "Windows": [
+    {
+      "Title": "main",
+      "Top": null,
+      "Left": "20",
+      "Width": "400",
+      "Height": "200"
+    },
+    {
+      "Title": "help",
+      "Top": "10",
+      "Left": "30",
+      "Width": null,
+      "Height": "100"
+    }
+  ]
+}
