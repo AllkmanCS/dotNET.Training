@@ -3,8 +3,8 @@
   "Windows": [
     {
       "Title": "main",
-      "Top": null,
-      "Left": "20",
+      "Top": "0",
+      "Left": "0",
       "Width": "400",
       "Height": "200"
     },
@@ -12,7 +12,7 @@
       "Title": "help",
       "Top": "10",
       "Left": "30",
-      "Width": null,
+      "Width": "400",
       "Height": "100"
     }
   ]

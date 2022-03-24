@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using System.Text.Json;
 using System.Xml.Linq;
 using XMLFileHandler.Entities;
 
 namespace XMLFileHandler
 {
-    internal class UserSettingsFromXmlToJson
+    internal class ConfigToJson
     {
-        private readonly static string xmlFile = "C:/Users/AlgirdasCernevicius/source/repos/dotNET.Training/XMLFileHandler/XMLFileHandler/Config" + @"\config.xml";
-        private readonly static string jsonPath = "C:/Users/AlgirdasCernevicius/source/repos/dotNET.Training/XMLFileHandler/XMLFileHandler/Config/";
+        private readonly string _xmlFile;
+        private readonly string _jsonPath;
+        public ConfigToJson(string xmlFile, string jsonPath)
+        {
+            _xmlFile = xmlFile;
+            _jsonPath = jsonPath;
+        }
         public void DisplayIncorrectLogins()
         {
-            var xml = XDocument.Load(xmlFile);
+            var xml = XDocument.Load(_xmlFile);
             var logins = GetLogins(xml);
 
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -27,17 +26,20 @@ namespace XMLFileHandler
                 {
                     if (item.Top == null || item.Left == null || item.Width == null || item.Height == null)
                     {
+                        //setting default values just before serializing to Json files
+                        item.SetDefaultValues();
                         string jsonString = JsonSerializer.Serialize(login, options);
                         Console.WriteLine(jsonString);
-                        File.WriteAllText(jsonPath + login.Name + ".json", jsonString);
+                        //TODO I should refactor it with using(var stream... )
+                        File.WriteAllText(_jsonPath + login.Name + ".json", jsonString);
                     }
                 }
             }
         }
-        private List<User> GetLogins(XDocument xml)
+        private List<Config> GetLogins(XDocument xml)
         {
             var logins = (from login in xml.Descendants("login")
-                          select new User
+                          select new Config
                           {
                               Name = login.Attribute("name").Value,
                               Windows = GetWindows(login),
