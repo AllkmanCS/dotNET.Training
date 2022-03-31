@@ -50,7 +50,7 @@ namespace MonitoringApplication
             
             foreach (var item in _pingers)
             {
-                tasks.Add(item.Ping());
+                tasks.Add(item.SendPing());
             }
             await Task.WhenAll(tasks);
         }

@@ -1,7 +1,7 @@
 ﻿namespace MonitoringApplication.Interfaces
 {
-    public interface IEmailService
+    public interface ILogService
     {
-        Task Send();
+        void Log();
     }
 }

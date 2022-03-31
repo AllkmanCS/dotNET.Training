@@ -5,24 +5,27 @@ using MimeKit.Text;
 using MonitoringApplication.Configurations;
 using MonitoringApplication.Interfaces;
 using MailKit.Net.Smtp;
+using Microsoft.Extensions.Configuration;
 
 namespace MonitoringApplication.Services
 {
     public class EmailService : IEmailService
     {
-        private readonly WebsiteConfigurations _configurations;
-
-        public EmailService(IOptions<WebsiteConfigurations> configurations)
+        private string _email;
+        public EmailService(WebsiteConfigurations configurations)
         {
-            _configurations = configurations.Value;
+            _email = configurations.AdminEmail;
         }
+        public EmailService()
+        {
 
-        public void Send()
+        }
+        public async Task Send()
         {
             // create message
             var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse(_configurations.AdminEmail));
-            email.To.Add(MailboxAddress.Parse(_configurations.AdminEmail));
+            email.From.Add(MailboxAddress.Parse(_email));
+            email.To.Add(MailboxAddress.Parse(_email));
             email.Subject = "WebsiteMonitor Alert!";
             email.Body = new TextPart(TextFormat.Plain) { Text = "Website timeout!" };
 
