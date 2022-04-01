@@ -8,8 +8,8 @@ namespace MonitoringApplication
     {
 
         private string[] _paths = { "msDocs", "delfi" };
-        private List<IWebPinger> _pingers = new List<IWebPinger>(); //Ping()
-        private List<WebsiteConfigurations> _websites; //Ping()
+        private List<IWebPinger> _pingers = new List<IWebPinger>();
+        private List<WebsiteConfigurations> _websites;
         private IConfigurationRoot _config;
         public WebsiteMonitor()
         {
@@ -53,6 +53,10 @@ namespace MonitoringApplication
                 tasks.Add(item.SendPing());
             }
             await Task.WhenAll(tasks);
+        }
+        public async Task StopMonitoring()
+        {
+            
         }
     }
 }

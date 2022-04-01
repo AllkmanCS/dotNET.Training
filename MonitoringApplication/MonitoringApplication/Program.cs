@@ -24,7 +24,7 @@ class Program
                 watcher.Filter = ".json"; //or to specify full name? appsettings.json
                 watcher.Changed += (s, e) =>
                 {
-                    //websiteMonitor.Stop();
+                    websiteMonitor.StopMonitoring();
                     websiteMonitor.Initialize();
                     websiteMonitor.StartMonitoring();
                 };

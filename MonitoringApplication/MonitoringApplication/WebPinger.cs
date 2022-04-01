@@ -22,7 +22,7 @@ namespace MonitoringApplication
         public async Task SendPing()
         {
             Stopwatch sw = Stopwatch.StartNew();
-            sw.Start();
+            //sw.Start();
             while (sw.Elapsed.TotalSeconds < 100000)
             {
                 Ping pinger = new Ping();
