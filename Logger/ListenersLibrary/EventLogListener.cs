@@ -2,18 +2,18 @@
 using ListenersConfigurationLibrary.ListenersConfigurations;
 using System.Diagnostics;
 
-namespace ListenersLibrary.Listeners
+namespace ListenersLibrary
 {
     public class EventLogListener : IListener
     {
-        private string _eventLogName;
-        public string MinLogLevel { get; }
+        public string EventLogName { get; set; }
+        public string MinLogLevel { get; set; }
         public EventLogListener(EventLogListenerConfiguration configuration)
         {
-            _eventLogName = configuration.EventLogName;
+            EventLogName = configuration.EventLogName;
             MinLogLevel = configuration.MinLogLevel;
         }
-
+        public EventLogListener() { }
         public void Write(string message)
         {
             // Create an instance of EventLog

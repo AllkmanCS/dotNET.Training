@@ -2,7 +2,7 @@
 using ListenersConfigurationLibrary.Interfaces;
 using ListenersConfigurationLibrary.ListenerConfigurations;
 using ListenersConfigurationLibrary.ListenersConfigurations;
-using ListenersLibrary.Listeners;
+//using ListenersLibrary.Listeners;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 using System.Text;
@@ -12,41 +12,74 @@ namespace LoggerTask
     public class Logger
     {
         public List<IListener> _listeners = new List<IListener>();
-        private string[] paths = { "fileListener", "wordListener", "eventLogListener" };
+        private string[] _paths = { "ListenersLibrary.FileListener", "ListenersLibrary.WordListener", "ListenersLibrary.EventLogListener" };
         private string _propertyAttributeName;
         private string _propertyValue;
         private string _fieldAttributeName;
         private string _fieldValue;
-        private static readonly Dictionary<string, string> log = new Dictionary<string, string>();
+        private string _fileName;
+        private string _minLogLevel;
+        private string _eventLogName;
 
         public Logger()
         {
             IConfigurationBuilder builder = new ConfigurationBuilder()
                .AddJsonFile(@"C:/Users/AlgirdasCernevicius/source/repos/dotNET.Training/Logger/LoggerTask/appsettings.json");
             var config = builder.Build();
-            foreach (var item in paths)
+            foreach (var item in _paths)
             {
                 switch (item)
                 {
-                    case "fileListener":
+                    case "ListenersLibrary.FileListener":
                         var fileListenerConfiguration = config.GetSection(FileListenerConfiguration.SectionName)
                             .Get<FileListenerConfiguration>();
-                        _listeners.Add(new FileListener(fileListenerConfiguration));
+                        _fileName = fileListenerConfiguration.FileName;
+                        _minLogLevel = fileListenerConfiguration.MinLogLevel;
+                        _listeners.Add(GetListener(_paths[0], _fileName, _minLogLevel));
                         break;
-                    case "wordListener":
+                    case "ListenersLibrary.WordListener":
                         var wordListenerConfiguration = config.GetSection(WordListenerConfiguration.SectionName)
                             .Get<WordListenerConfiguration>();
-                        _listeners.Add(new WordListener(wordListenerConfiguration));
+                        _fileName = wordListenerConfiguration.FileName;
+                        _minLogLevel = wordListenerConfiguration.MinLogLevel;
+                        _listeners.Add(GetListener(_paths[1], _fileName, _minLogLevel));
                         break;
-                    case "eventLogListener":
+                    case "ListenersLibrary.EventLogListener":
                         var eventLogConfiguration = config.GetSection(EventLogListenerConfiguration.SectionName)
                             .Get<EventLogListenerConfiguration>();
-                        _listeners.Add(new EventLogListener(eventLogConfiguration));
+                        _eventLogName = eventLogConfiguration.EventLogName;
+                        _minLogLevel = eventLogConfiguration.MinLogLevel;
+                        _listeners.Add(GetListener(_paths[2], _eventLogName, _minLogLevel));
                         break;
                     default:
                         break;
                 }
             }
+        }
+        private IListener GetListener(string listenerName, string name, string minLogLevel)
+        {
+            Assembly listenerAssembly = Assembly.LoadFrom("C:/Users/AlgirdasCernevicius/source/repos/dotNET.Training/Logger/ListenersLibrary/bin/Debug/net6.0/ListenersLibrary.dll");
+            Type listenerType = listenerAssembly.GetType(listenerName);
+            object instance = Activator.CreateInstance(listenerType);
+            foreach (var item in instance.GetType().GetRuntimeProperties())
+            {
+                if (item.Name == "FileName")
+                {
+                    name = _fileName;
+                    item.SetValue(instance, name);
+                }
+                else if (item.Name == "EventLogName")
+                {
+                    name = _eventLogName;
+                    item.SetValue(instance, name);
+                }
+                else if (item.Name == "MinLogLevel")
+                {
+                    minLogLevel = _minLogLevel;
+                    item.SetValue(instance, minLogLevel);
+                }
+            }
+            return instance as IListener;
         }
         public void Track(object obj, int logLevel)
         {

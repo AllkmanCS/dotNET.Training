@@ -4,23 +4,23 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using ListenersConfigurationLibrary.Interfaces;
 using ListenersConfigurationLibrary.ListenersConfigurations;
 
-namespace ListenersLibrary.Listeners
+namespace ListenersLibrary
 {
     public class WordListener : IListener
     {
-        private string _fileName;
-        public string MinLogLevel { get; }
+        private string FileName { get; set; }
+        public string MinLogLevel { get; set; }
         public WordListener(WordListenerConfiguration configuration)
         {
-            _fileName = configuration.FileName;
+            FileName = configuration.FileName;
             MinLogLevel = configuration.MinLogLevel;
         }
-
+        public WordListener() { }
         public void Write(string message)
         {
             // Create a document by supplying the filepath. 
             using (WordprocessingDocument wordDocument =
-                WordprocessingDocument.Create(_fileName, WordprocessingDocumentType.Document))
+                WordprocessingDocument.Create(FileName, WordprocessingDocumentType.Document))
             {
                 // Add a main document part. 
                 MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
