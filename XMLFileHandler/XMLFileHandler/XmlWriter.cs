@@ -7,30 +7,28 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using XMLFileHandler.Entities;
+using XMLFileHandler.Interfaces;
 
 namespace XMLFileHandler
 {
-    [XmlRoot("config")]
-    public class ConfigToXml   
+
+    public class XmlWriter   
     {
         private readonly string _filePath;
-        [XmlElement("login", Type = typeof(Config))]
-        public List<Config> Users { get; set; } = new List<Config>();
-        public ConfigToXml(string filePath)
+        private IConfig _config;
+        public XmlWriter(string filePath, Config config)
         {
             _filePath = filePath;
+            _config = config;
         }
-        public ConfigToXml() { }
-        public void AddUser(Config user)
-        {
-            Users.Add(user);
-        }
+        public XmlWriter() { }
+
         public void SaveToXml()
         {
-            var serializer = new XmlSerializer(typeof(ConfigToXml));
+            var serializer = new XmlSerializer(typeof(List<User>));
             using (var stream = new FileStream(_filePath, FileMode.Create))
             {
-                serializer.Serialize(stream, this);
+                serializer.Serialize(stream, _config.GetUsers());
             }
             Console.WriteLine("Saved!");
         }

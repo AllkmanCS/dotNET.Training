@@ -7,22 +7,28 @@ const string jsonPath = "C:/Users/AlgirdasCernevicius/source/repos/dotNET.Traini
 try
 {
 
-    var alexMainWindow = new Window("main", "10", "40", "400", "200");
-    var userAlex = new Config("alex", alexMainWindow, null);
+    var alexMainWindow = new Window("main", null, "80", "400", "200");
+    var userAlex = new User("alex", alexMainWindow, null);
 
-    var sarahMainWindow = new Window("main", null, "", "400", "200");
-    var sarahHelpWindow = new Window("help", "10", "30", null, "100");
-    var userSarah = new Config("sarah", sarahMainWindow, sarahHelpWindow);
+    var sarahMainWindow = new Window("main", "10", "50", "400", "200");
+    var sarahHelpWindow = new Window("help", null, "30", null, "100");
+    var userSarah = new User("sarah", sarahMainWindow, sarahHelpWindow);
 
-    var annaMainWindow = new Window("main", "25", null, "350", "150");
-    var userAnna = new Config("anna", annaMainWindow, null);
-    var config = new ConfigToXml(xmlFile);
-    config.AddUser(userAlex);
-    config.AddUser(userSarah);
-    config.AddUser(userAnna);
-    config.SaveToXml();
+    var annaMainWindow = new Window("main", "105", null, "350", "150");
+    var userAnna = new User("anna", annaMainWindow, null);
+    var users = new List<User>();
+    users.Add(userAlex);
+    users.Add(userSarah);
+    users.Add(userAnna);
+    var config = new Config(users);
 
-    var xmlToJson = new ConfigToJson(xmlFile, jsonPath);
+    var xmlWriter = new XmlWriter(xmlFile, config);
+    //config.AddUser(userAlex);
+    //config.AddUser(userSarah);
+    //config.AddUser(userAnna);
+    xmlWriter.SaveToXml();
+    var xmlParser = new XmlParser(xmlFile);
+    var xmlToJson = new JsonWriter(xmlParser, jsonPath);
     xmlToJson.DisplayIncorrectLogins();
 }
 catch (NullReferenceException)

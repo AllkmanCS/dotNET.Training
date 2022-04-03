@@ -3,10 +3,11 @@
   "Windows": [
     {
       "Title": "main",
-      "Top": "25",
+      "Top": "105",
       "Left": "0",
       "Width": "350",
       "Height": "150"
     }
-  ]
+  ],
+  "Users": null
 }

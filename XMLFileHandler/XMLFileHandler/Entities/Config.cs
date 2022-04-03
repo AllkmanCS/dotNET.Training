@@ -1,30 +1,24 @@
 ﻿using System.Xml.Serialization;
+using XMLFileHandler.Interfaces;
 
 namespace XMLFileHandler.Entities
 {
     [XmlRoot("config")]
-    public class Config
+    public class Config : IConfig
     {
-        [XmlAttribute("name")]
-        public string Name { get; set; }
-        [XmlElement("window", Type = typeof(Window))]
+        [XmlElement("login", Type = typeof(User))]
+        private List<User> _users = new List<User>();
+        public Config(List<User> users)
+        {
+            _users = users;
+        }
+        public Config()
+        {
 
-        public List<Window> Windows { get; set; }
-        private Window _mainWindow = new Window();
-        private Window _helpWindow = new Window();
-        public Config(string name, Window main, Window help)
-        {
-            Name = name;
-            _mainWindow = main;
-            _helpWindow = help;
-            Windows = new List<Window>();
-            Windows.Add(_mainWindow);
-            Windows.Add(_helpWindow);
         }
-        public Config(string name)
+        public List<User> GetUsers()
         {
-            Name = name;
+            return _users.Where(x => x != null).ToList();
         }
-        public Config() { }
     }
 }
