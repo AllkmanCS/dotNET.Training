@@ -6,7 +6,6 @@ const string jsonPath = "C:/Users/AlgirdasCernevicius/source/repos/dotNET.Traini
 
 try
 {
-
     var alexMainWindow = new Window("main", null, "80", "400", "200");
     var userAlex = new User("alex", alexMainWindow, null);
 
@@ -22,13 +21,12 @@ try
     users.Add(userAnna);
     var config = new Config(users);
 
-    var xmlWriter = new XmlWriter(xmlFile, config);
-    //config.AddUser(userAlex);
-    //config.AddUser(userSarah);
-    //config.AddUser(userAnna);
+    var xmlWriter = new XmlConfigWriter(xmlFile, config);
+
     xmlWriter.SaveToXml();
+
     var xmlParser = new XmlParser(xmlFile);
-    var xmlToJson = new JsonWriter(xmlParser, jsonPath);
+    var xmlToJson = new JsonConfigWriter(xmlParser, jsonPath);
     xmlToJson.DisplayIncorrectLogins();
 }
 catch (NullReferenceException)

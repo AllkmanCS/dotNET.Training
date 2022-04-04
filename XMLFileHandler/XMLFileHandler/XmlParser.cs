@@ -18,7 +18,7 @@ namespace XMLFileHandler
         }
         private List<User> GetUsersLogins(XDocument xml)
         {
-            return (from login in xml.Descendants("User")
+            return (from login in xml.Descendants("login")
                           select new User
                           {
                               Name = login.Attribute("name").Value,

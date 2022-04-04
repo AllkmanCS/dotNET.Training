@@ -3,11 +3,11 @@ using XMLFileHandler.Interfaces;
 
 namespace XMLFileHandler
 {
-    internal class JsonWriter
+    internal class JsonConfigWriter
     {
         private readonly string _jsonPath;
         private readonly IXmlParser _xmlParser;
-        public JsonWriter(XmlParser xmlParser, string jsonPath)
+        public JsonConfigWriter(XmlParser xmlParser, string jsonPath)
         {
             _xmlParser = xmlParser;
             _jsonPath = jsonPath;
