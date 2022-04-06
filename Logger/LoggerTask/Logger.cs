@@ -33,7 +33,6 @@ namespace LoggerTask
         }
         public void Track(object obj, int logLevel)
         {
-
             string message = _objectToStringConverter.ConvertToString(obj);
             foreach (var listener in _listeners)
             {
