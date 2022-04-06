@@ -14,6 +14,8 @@ namespace MonitoringApplication
         private int _responseTime;
         private IEmailService _emailService = new EmailService();
         private ILogService _logService = new LogService();
+        private CancellationToken _cancellationToken = new CancellationToken();
+
         public WebPinger(WebsiteConfigurations configurations)
         {
             _url = configurations.Url;
@@ -23,7 +25,7 @@ namespace MonitoringApplication
         {
             Stopwatch sw = Stopwatch.StartNew();
             //sw.Start();
-            while (sw.Elapsed.TotalSeconds < 100000)
+            while (!_cancellationToken.IsCancellationRequested )
             {
                 Ping pinger = new Ping();
                 PingReply pingReply = pinger.Send(_url, _responseTime);
@@ -38,7 +40,6 @@ namespace MonitoringApplication
                     await _emailService.Send();
                     Console.WriteLine("Email sent!");
                 }
-
                 await Task.Delay(_configurations.CheckInterval);
             }
             //Thread.Sleep(timeInterval);

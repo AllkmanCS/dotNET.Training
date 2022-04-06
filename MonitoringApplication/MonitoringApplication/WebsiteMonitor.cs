@@ -11,6 +11,8 @@ namespace MonitoringApplication
         private List<IWebPinger> _pingers = new List<IWebPinger>();
         private List<WebsiteConfigurations> _websites;
         private IConfigurationRoot _config;
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+
         public WebsiteMonitor()
         {
             _websites = new List<WebsiteConfigurations>();
@@ -47,7 +49,7 @@ namespace MonitoringApplication
         public async Task StartMonitoring()
         {
             List<Task> tasks = new List<Task>();
-            
+
             foreach (var item in _pingers)
             {
                 tasks.Add(item.SendPing());
@@ -56,7 +58,7 @@ namespace MonitoringApplication
         }
         public async Task StopMonitoring()
         {
-            
+            _cancellationTokenSource.Cancel();
         }
     }
 }
