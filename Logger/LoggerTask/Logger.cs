@@ -10,13 +10,16 @@ namespace LoggerTask
         public List<IListener> _listeners = new List<IListener>();
         private ObjectToStringConverter _objectToStringConverter = new ObjectToStringConverter();
         private readonly string _jsonFile;
+        private const string _jsonListenersName = "Listeners";
+        private const string _minLogLevel = "MinLogLevel";
+
         public Logger(string jsonFile)
         {
             _jsonFile = jsonFile;
             IConfigurationBuilder builder = new ConfigurationBuilder()
                                    .AddJsonFile(_jsonFile);
             var cfg = builder.Build();
-            var listeners = cfg.GetSection("Listeners").Get<List<List<string>>>();
+            var listeners = cfg.GetSection(_jsonListenersName).Get<List<List<string>>>();
             foreach (var listener in listeners)
             {
                 Assembly assembly = Assembly.LoadFrom(listener[1]);
@@ -30,17 +33,11 @@ namespace LoggerTask
         }
         public void Track(object obj, int logLevel)
         {
-                //foreach (var item in instance.GetType().GetRuntimeProperties())
-                //{
-                //    if (item.Name == "MinLogLevel")
-                //    {
-                //        _minLogLevel = item.GetValue(instance).ToString();
-                //    }
-                //}
+
             string message = _objectToStringConverter.ConvertToString(obj);
             foreach (var listener in _listeners)
             {
-                var minlogLevel= listener.GetType().GetRuntimeProperty("MinLogLevel").GetValue(listener).ToString();
+                var minlogLevel= listener.GetType().GetRuntimeProperty(_minLogLevel).GetValue(listener).ToString();
                 var logLevelValue = (int)Enum.Parse(typeof(LogLevel), minlogLevel, true);
                 if (logLevel > logLevelValue)
                 {
@@ -50,58 +47,3 @@ namespace LoggerTask
         }
     }
 }
-
-            //foreach (var item in _paths)
-            //{
-            //    switch (item)
-            //    {
-            //        case "ListenersLibrary.FileListener":
-            //            var fileListenerConfiguration = config.GetSection(FileListenerConfiguration.SectionName)
-            //                .Get<FileListenerConfiguration>();
-            //            _fileName = fileListenerConfiguration.FileName;
-            //            _minLogLevel = fileListenerConfiguration.MinLogLevel;
-            //            _listeners.Add(GetListener(_paths[0], _fileName, _minLogLevel));
-            //            break;
-            //        case "ListenersLibrary.WordListener":
-            //            var wordListenerConfiguration = config.GetSection(WordListenerConfiguration.SectionName)
-            //                .Get<WordListenerConfiguration>();
-            //            _fileName = wordListenerConfiguration.FileName;
-            //            _minLogLevel = wordListenerConfiguration.MinLogLevel;
-            //            _listeners.Add(GetListener(_paths[1], _fileName, _minLogLevel));
-            //            break;
-            //        case "ListenersLibrary.EventLogListener":
-            //            var eventLogConfiguration = config.GetSection(EventLogListenerConfiguration.SectionName)
-            //                .Get<EventLogListenerConfiguration>();
-            //            _eventLogName = eventLogConfiguration.EventLogName;
-            //            _minLogLevel = eventLogConfiguration.MinLogLevel;
-            //            _listeners.Add(GetListener(_paths[2], _eventLogName, _minLogLevel));
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //}
-        //private IListener GetListener(string listenerName, string name, string minLogLevel)
-        //{
-        //    Assembly listenerAssembly = Assembly.LoadFrom("C:/Users/AlgirdasCernevicius/source/repos/dotNET.Training/Logger/ListenersLibrary/bin/Debug/net6.0/ListenersLibrary.dll");
-        //    Type listenerType = listenerAssembly.GetType(listenerName);
-        //    object instance = Activator.CreateInstance(listenerType);
-        //    foreach (var item in instance.GetType().GetRuntimeProperties())
-        //    {
-        //        if (item.Name == "FileName")
-        //        {
-        //            name = _fileName;
-        //            item.SetValue(instance, name);
-        //        }
-        //        else if (item.Name == "EventLogName")
-        //        {
-        //            name = _eventLogName;
-        //            item.SetValue(instance, name);
-        //        }
-        //        else if (item.Name == "MinLogLevel")
-        //        {
-        //            minLogLevel = _minLogLevel;
-        //            item.SetValue(instance, minLogLevel);
-        //        }
-        //    }
-        //    return instance as IListener;
-        //}
