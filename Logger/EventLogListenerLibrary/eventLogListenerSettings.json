@@ -1,0 +1,6 @@
+{
+  "eventLogListener": {
+    "eventLogName": "Application",
+    "minLogLevel": "Information"
+  }
+}
