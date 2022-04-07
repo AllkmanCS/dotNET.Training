@@ -29,10 +29,7 @@ class Program
                     websiteMonitor.StartMonitoring();
                 };
             }
-            else
-            {
-                //Mutex isnt owned.So other instances can run.
-            }
+           
         }
     }
 }
