@@ -34,18 +34,5 @@ class Program
                 //Mutex isnt owned.So other instances can run.
             }
         }
-}
-
-    private static void Watcher_Changed(object sender, FileSystemEventArgs e)
-    {
-        throw new NotImplementedException();
     }
-    //public void ReleaseMut()
-    //{
-    //    mut.ReleaseMutex();
-    //}
-
 }
-
-
-

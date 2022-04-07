@@ -10,7 +10,6 @@ namespace MonitoringApplication
         private string[] _paths = { "msDocs", "delfi" };
         private List<IWebPinger> _pingers = new List<IWebPinger>();
         private List<WebsiteConfigurations> _websites;
-        private IConfigurationRoot _config;
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         public WebsiteMonitor()
@@ -52,7 +51,7 @@ namespace MonitoringApplication
 
             foreach (var item in _pingers)
             {
-                tasks.Add(item.SendPing());
+                tasks.Add(item.SendPing(_cancellationTokenSource.Token));
             }
             await Task.WhenAll(tasks);
         }
