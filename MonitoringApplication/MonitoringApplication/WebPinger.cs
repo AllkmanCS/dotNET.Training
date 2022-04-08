@@ -12,22 +12,23 @@ namespace MonitoringApplication
         private WebsiteConfigurations _configurations = new WebsiteConfigurations();
         private string _url;
         private int _responseTime;
+        private int _checkInterval;
         private IEmailService _emailService = new EmailService();
         private ILogService _logService = new LogService();
-        private HttpClient _httpClient = new HttpClient();
         public WebPinger(WebsiteConfigurations configurations)
         {
             _url = configurations.Url;
             _responseTime = configurations.ResponseTime;
+            _checkInterval = configurations.CheckInterval;
         }
         public async Task SendPing(CancellationToken cancellationToken)
         {
-            Stopwatch sw = Stopwatch.StartNew();
-            while (sw.Elapsed.TotalMilliseconds < 10000)
+            while (true)
             {
-                Console.WriteLine(sw.Elapsed.TotalMilliseconds);
-                var request = _httpClient.GetAsync(_url, cancellationToken);
-                if (request.IsCompletedSuccessfully)
+                var ping = new Ping();
+                var response = await ping.SendPingAsync(_url);
+                Console.WriteLine(response.RoundtripTime);
+                if (response.RoundtripTime < _responseTime)
                 {
                     _logService.Log();
                     Console.WriteLine("Logged!");
@@ -38,6 +39,7 @@ namespace MonitoringApplication
                     Console.WriteLine("Email sent!");
                 }
                 await Task.Delay(_configurations.CheckInterval);
+                cancellationToken.ThrowIfCancellationRequested();
             }
         }
     }
