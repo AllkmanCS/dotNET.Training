@@ -11,7 +11,7 @@ namespace SensorMonitor.BL.MeasuredValueGenerators
     {
         public int GetMeasuredValue()
         {
-            throw new NotImplementedException();
+            return 0;
         }
     }
 }

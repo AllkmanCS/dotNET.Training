@@ -1,4 +1,5 @@
 ﻿using SensorMonitor.BL.Interfaces;
+using Sensors.DAL.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace SensorMonitor.BL.MeasuredValueGenerators
     {
         public int GetMeasuredValue()
         {
-            throw new NotImplementedException();
+            int value = 0;
+            return value ++;
         }
     }
 }

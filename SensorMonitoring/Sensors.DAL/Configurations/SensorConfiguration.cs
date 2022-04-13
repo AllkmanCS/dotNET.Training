@@ -1,6 +1,5 @@
 ﻿using Sensors.DAL.Enums;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
 namespace Sensors.DAL.Configurations

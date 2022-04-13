@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SensorMonitor.BL\SensorMonitor.BL.csproj" />
     <ProjectReference Include="..\Sensors.DAL\Sensors.DAL.csproj" />
   </ItemGroup>
 
