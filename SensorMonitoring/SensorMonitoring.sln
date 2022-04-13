@@ -5,7 +5,9 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SensorMonitor.WPF", "SensorMonitoring.WPF\SensorMonitor.WPF.csproj", "{E5359571-FAF2-43A6-A733-EA9B1E483524}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sensors.DAL", "Sensors.DAL\Sensors.DAL.csproj", "{2B343A5F-061A-4D20-9E42-FB0C1CC6F85A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sensors.DAL", "Sensors.DAL\Sensors.DAL.csproj", "{2B343A5F-061A-4D20-9E42-FB0C1CC6F85A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorMonitor.BL", "SensorMonitor.BL\SensorMonitor.BL.csproj", "{36FC5614-42CF-46BD-8411-C616E01670AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{2B343A5F-061A-4D20-9E42-FB0C1CC6F85A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B343A5F-061A-4D20-9E42-FB0C1CC6F85A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B343A5F-061A-4D20-9E42-FB0C1CC6F85A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36FC5614-42CF-46BD-8411-C616E01670AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36FC5614-42CF-46BD-8411-C616E01670AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36FC5614-42CF-46BD-8411-C616E01670AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36FC5614-42CF-46BD-8411-C616E01670AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

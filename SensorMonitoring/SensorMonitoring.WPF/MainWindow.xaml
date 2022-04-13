@@ -18,10 +18,10 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <ListBox VerticalAlignment="Center" ItemsSource="{Binding Source}">
+            <ListBox x:Name="sensorTypes" VerticalAlignment="Center" ItemsSource="{Binding sensorTypes}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding ElementName}"/>
+                        <TextBlock Text="{Binding Source }"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -35,10 +35,11 @@
         <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4">
             <DataGrid Name="sensorsDataGrid" AutoGenerateColumns="False" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Name}" Header="Sensor Name" />
-                    <DataGridTextColumn Binding="{Binding Value}" Header="Sensor Value"/>
-                    <DataGridTextColumn Binding="{Binding Mode}" Header="Sensor Mode"/>
-                    <DataGridTextColumn Binding="{Binding Action}" Header="Action"/>
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Sensor Id" />
+                    <DataGridTextColumn Binding="{Binding SensorType}" Header="Sensor Type" />
+                    <DataGridTextColumn Binding="{Binding MeasuredValue}" Header="Sensor Value"/>
+                    <DataGridTextColumn Binding="{Binding MeasurementInterval}" Header="Measurement Interval"/>
+                    <DataGridTextColumn Binding="{Binding SensorMode}" Header="Sensor Mode"/>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

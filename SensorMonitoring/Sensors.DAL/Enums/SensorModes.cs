@@ -1,6 +1,6 @@
 ﻿namespace Sensors.DAL.Enums
 {
-    public enum SensorMode
+    public enum SensorModes
     {
         Idle,
         Calibration,

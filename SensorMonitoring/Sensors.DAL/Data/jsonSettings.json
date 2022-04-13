@@ -1,0 +1,14 @@
+[
+  {
+    "SensorType": "MagneticField",
+    "MeasurementInterval": 2000
+  },
+  {
+    "SensorType": "Pressure",
+    "MeasurementInterval": 1500
+  },
+  {
+    "SensorType": "Temperature",
+    "MeasurementInterval": 2000
+  }
+]
