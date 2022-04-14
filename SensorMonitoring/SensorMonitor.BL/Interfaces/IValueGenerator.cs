@@ -9,6 +9,6 @@ namespace SensorMonitor.BL.Interfaces
 {
     public interface IValueGenerator
     {
-        int GetMeasuredValue();
+        double GetMeasuredValue(double value);
     }
 }

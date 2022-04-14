@@ -1,1 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<sensors>
+	<sensorConfiguration>
+		<MeasurementInterval>1500</MeasurementInterval>
+		<SensorType>MagneticField</SensorType>
+	</sensorConfiguration>
+	<sensorConfiguration>
+		<MeasurementInterval>500</MeasurementInterval>
+		<SensorType>Pressure</SensorType>
+	</sensorConfiguration>
+	<sensorConfiguration>
+		<MeasurementInterval>1000</MeasurementInterval>
+		<SensorType>Temperature</SensorType>
+	</sensorConfiguration>
+</sensors>

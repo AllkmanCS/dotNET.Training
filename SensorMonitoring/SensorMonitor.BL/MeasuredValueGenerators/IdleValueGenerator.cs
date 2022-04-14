@@ -9,7 +9,7 @@ namespace SensorMonitor.BL.MeasuredValueGenerators
 {
     internal class IdleValueGenerator : IValueGenerator
     {
-        public int GetMeasuredValue()
+        public double GetMeasuredValue(double value)
         {
             return 0;
         }

@@ -13,10 +13,10 @@ namespace SensorMonitor.BL.MeasuredValueGenerators
 {
     internal class WorkingValueGenerator : IValueGenerator
     {
-        public int GetMeasuredValue()
+        public double GetMeasuredValue(double value)
         {
             var random = new Random();
-            var value = random.Next(0, 100);
+            value = random.NextDouble()*1000;
             return value;
         }
     }

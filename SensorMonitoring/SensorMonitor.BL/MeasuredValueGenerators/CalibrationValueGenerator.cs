@@ -10,10 +10,9 @@ namespace SensorMonitor.BL.MeasuredValueGenerators
 {
     internal class CalibrationValueGenerator : IValueGenerator
     {
-        public int GetMeasuredValue()
+        public double GetMeasuredValue(double value)
         {
-            int value = 0;
-            return value ++;
+            return (int)value ++;
         }
     }
 }
