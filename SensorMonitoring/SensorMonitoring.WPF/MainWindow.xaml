@@ -18,7 +18,15 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <ListBox ItemsSource="{Binding Path= SensorSettings}"/>
+            <Label Name="sensorSettingsLabel">Select Sesnsor Settings File</Label>
+            <ListBox Name="sensorSettings" ItemsSource="{Binding Path= SensorSettings}" SelectionChanged="sensorSettings_SelectionChanged">
+                <ListBoxItem>
+                    <TextBlock>Json Settings</TextBlock>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <TextBlock>Xml Settings</TextBlock>
+                </ListBoxItem>
+            </ListBox>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBox Name="sensorType" Width="100" />

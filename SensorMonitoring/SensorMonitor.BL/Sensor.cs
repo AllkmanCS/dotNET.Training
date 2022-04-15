@@ -20,14 +20,17 @@ namespace SensorMonitor.BL
         //setting default sesnor mode
         private SensorModes _mode = SensorModes.Idle;
         private IValueGenerator _generator;
-        private Guid _id;
+        private Guid _id = Guid.NewGuid();
+        public Guid Id { get { return _id; } set { _id = value; } }
         private int _measurementInterval;
+        public int MeasurementInterval { get { return _measurementInterval; } set { _measurementInterval = value; } }
         private SensorTypes _sensorType;
+        public SensorTypes SensorType { get { return _sensorType; } set { _sensorType = value; } }
         private int _measuredValue;
         public int MeasuredValue { get => _measuredValue; set => _measuredValue = value; }
         public Sensor(SensorConfiguration configuration)
         {
-            _id = configuration.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
             _measurementInterval = configuration.MeasurementInterval;
             _sensorType = configuration.SensorType;
         }

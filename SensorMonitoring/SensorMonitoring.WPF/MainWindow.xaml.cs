@@ -1,5 +1,6 @@
 ﻿using SensorMonitor.BL;
 using Sensors.DAL.Configurations;
+using Sensors.DAL.Data;
 using Sensors.DAL.Enums;
 using Sensors.DAL.Factory;
 using Sensors.DAL.Factory.Factory;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SensorMonitoring.WPF
 {
@@ -20,7 +22,8 @@ namespace SensorMonitoring.WPF
         private string _jsonFileName = @"C:\Users\AlgirdasCernevicius\source\repos\dotNET.Training\SensorMonitoring\Sensors.DAL\Data\jsonSettings.json";
         private string _xmlFileName = @"C:\Users\AlgirdasCernevicius\source\repos\dotNET.Training\SensorMonitoring\Sensors.DAL\Data\xmlSettings.xml";
         private ObservableCollection<Sensor> _sensors = new ObservableCollection<Sensor>();
-        ObservableCollection<ISensorConfigurationReader> _sensorSettings = new ObservableCollection<ISensorConfigurationReader>();
+        private ObservableCollection<ISensorConfigurationReader> _sensorSettings = new ObservableCollection<ISensorConfigurationReader>();
+        private SensorsSettings _selectedSensorSettings = new SensorsSettings();
         public ObservableCollection<ISensorConfigurationReader> SensorSettings
         {
             get
@@ -33,7 +36,6 @@ namespace SensorMonitoring.WPF
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = this;
         }
         private void Window_Initialized(object sender, EventArgs e)
         {
@@ -49,51 +51,29 @@ namespace SensorMonitoring.WPF
         }
         private void AddSensor(object sender, RoutedEventArgs e)
         {
-            foreach (var item in _sensorSettings)
+            string sensorTypeName = sensorType.Text;
+
+            foreach (var sensorType in _selectedSensorSettings.Sensors)
             {
-                string sensorTypeName = sensorType.Text;
-                if (item == _sensorSettings[0])
+                if (sensorType.SensorType == (SensorTypes)Enum.Parse(typeof(SensorTypes), sensorTypeName))
                 {
-                    var sensorTypes = _jsonCreator.Read(_jsonFileName);
-                    foreach (var sensorType in sensorTypes.Sensors)
-                    {
-                        switch ((SensorTypes)Enum.Parse(typeof(SensorTypes), sensorTypeName))
-                        {
-                            case SensorTypes.MagneticField:
-                                _sensors.Add(new Sensor(sensorType));
-                                break;
-                            case SensorTypes.Pressure:
-                                _sensors.Add(new Sensor(sensorType));
-                                break;
-                            case SensorTypes.Temperature:
-                                _sensors.Add(new Sensor(sensorType));
-                                break;
-                            default:
-                                break;
-                        }
-                    }
+                    _sensors.Add(new Sensor(sensorType));
                 }
-                else
-                {
-                    var sensorTypes = _xmlCreator.Read(_xmlFileName);
-                    foreach (var sensorType in sensorTypes.Sensors)
-                    {
-                        switch ((SensorTypes)Enum.Parse(typeof(SensorTypes), sensorTypeName))
-                        {
-                            case SensorTypes.MagneticField:
-                                _sensors.Add(new Sensor(sensorType));
-                                break;
-                            case SensorTypes.Pressure:
-                                _sensors.Add(new Sensor(sensorType));
-                                break;
-                            case SensorTypes.Temperature:
-                                _sensors.Add(new Sensor(sensorType));
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                }
+            }
+        }
+        private void sensorSettings_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            sensorSettingsLabel.Content = ((TextBlock)((sender as ListBox).SelectedItem as ListBoxItem).Content).Text;
+
+            if (sensorSettingsLabel.Content.ToString() == "Json Settings")
+            {
+                _selectedSensorSettings = _jsonCreator.Read(_jsonFileName);
+                Console.WriteLine("JSON");
+            }
+            if (sensorSettingsLabel.Content.ToString() == "Xml Settings")
+            {
+                _selectedSensorSettings = _xmlCreator.Read(_xmlFileName);
+                Console.WriteLine("XML");
             }
         }
     }
