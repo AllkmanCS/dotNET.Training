@@ -43,11 +43,16 @@ namespace SensorMonitoring.WPF
         }
         private void ChangeSensorMode(object sender, RoutedEventArgs e)
         {
-
+            foreach (var item in _sensors)
+            {
+                item.SwitchMode();
+            }
         }
         private void DeleteSensor(object sender, RoutedEventArgs e)
         {
-
+            var sensor = sender as Sensor;
+            if (sensor != null)
+            _sensors.Remove(sensor);
         }
         private void AddSensor(object sender, RoutedEventArgs e)
         {

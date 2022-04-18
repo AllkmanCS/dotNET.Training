@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Sensors.DAL\Sensors.DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="State\" />
-  </ItemGroup>
-
 </Project>
