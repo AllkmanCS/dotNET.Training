@@ -7,13 +7,9 @@ using System.Threading.Tasks;
 
 namespace LoggerTask
 {
-    public class ObjectToStringConverter
+    public static class ObjectToStringConverter
     {
-        private string _propertyAttributeName;
-        private string _propertyValue;
-        private string _fieldAttributeName;
-        private string _fieldValue;
-        public string ConvertToString(object obj)
+        public static string ConvertToString(object obj)
         {
             var sb = new StringBuilder();
             var classAttributes = obj.GetType().GetCustomAttributes(true);
@@ -23,23 +19,23 @@ namespace LoggerTask
                 {
                     foreach (var property in obj.GetType().GetProperties())
                     {
-                        _propertyAttributeName = ((TrackingPropertyAttribute)property.GetCustomAttribute(typeof(TrackingPropertyAttribute)))?.Name;
-                        _propertyValue = property.GetValue(obj).ToString();
-                        if (_propertyAttributeName is null)
+                        string propertyAttributeName = ((TrackingPropertyAttribute)property.GetCustomAttribute(typeof(TrackingPropertyAttribute)))?.Name;
+                        string propertyValue = property.GetValue(obj).ToString();
+                        if (propertyAttributeName is null)
                         {
-                            _propertyAttributeName = property.Name;
+                            propertyAttributeName = property.Name;
                         }
-                        sb.AppendJoin(" = ", _propertyAttributeName, _propertyValue);
+                        sb.AppendJoin(" = ", propertyAttributeName, propertyValue);
                     }
                     foreach (var field in obj.GetType().GetFields())
                     {
-                        _fieldAttributeName = ((TrackingPropertyAttribute)field.GetCustomAttribute(typeof(TrackingPropertyAttribute)))?.Name;
-                        _fieldValue = field.GetValue(obj).ToString();
-                        if (_fieldAttributeName is null)
+                        string fieldAttributeName = ((TrackingPropertyAttribute)field.GetCustomAttribute(typeof(TrackingPropertyAttribute)))?.Name;
+                        string fieldValue = field.GetValue(obj).ToString();
+                        if (fieldAttributeName is null)
                         {
-                            _fieldAttributeName = field.Name;
+                            fieldAttributeName = field.Name;
                         }
-                        sb.AppendJoin(" = ", _fieldAttributeName, _fieldValue);
+                        sb.AppendJoin(" = ", fieldAttributeName, fieldValue);
                     }
                 }
             }

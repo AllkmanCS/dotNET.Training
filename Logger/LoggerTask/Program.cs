@@ -1,7 +1,9 @@
 ﻿using LoggerTask;
 using LoggerTask.TestClasses;
 
-string jsonFile = "C:/Users/AlgirdasCernevicius/source/repos/dotNET.Training/Logger/LoggerTask/appsettings.json";
-    Logger logger = new Logger(jsonFile);
+string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+string sFile = System.IO.Path.Combine(sCurrentDirectory, @"..\..\..\appsettings.json");
+string jsonFile = Path.GetFullPath(sFile);
+Logger logger = new Logger(jsonFile);
 var testOne = new TestOne(12, "Text1", "Text2", 80000, 9033);    
 logger.Track(testOne, 2);

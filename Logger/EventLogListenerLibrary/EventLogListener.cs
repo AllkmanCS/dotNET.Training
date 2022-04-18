@@ -12,8 +12,11 @@ namespace EventLogListenerLibrary
         public string MinLogLevel { get; set; }
         public EventLogListener()
         {
+        string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        string sFile = Path.Combine(sCurrentDirectory, @"..\..\..\eventLogListenerSettings.json");
+        string jsonFile = Path.GetFullPath(sFile);
             IConfigurationBuilder builder = new ConfigurationBuilder()
-                     .AddJsonFile(@"C:\Users\AlgirdasCernevicius\source\repos\dotNET.Training\Logger\EventLogListenerLibrary\eventLogListenerSettings.json");
+                     .AddJsonFile(jsonFile);
             var config = builder.Build();
             var eventLogConfig = config.GetSection(EventLogListenerConfiguration.SectionName)
                 .Get<EventLogListenerConfiguration>();

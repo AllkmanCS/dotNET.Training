@@ -13,8 +13,11 @@ namespace WordListenerLibrary
         public string MinLogLevel { get; set; }
         public WordListener()
         {
+            string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string sFile = Path.Combine(sCurrentDirectory, @"..\..\..\wordListenerSettings.json");
+            string jsonFile = Path.GetFullPath(sFile);
             IConfigurationBuilder builder = new ConfigurationBuilder()
-                   .AddJsonFile(@"C:\Users\AlgirdasCernevicius\source\repos\dotNET.Training\Logger\WordListenerLibrary\wordListenerSettings.json");
+                   .AddJsonFile(jsonFile);
             var config = builder.Build();
             var wordListenerConfig = config.GetSection(WordListenerConfiguration.SectionName)
                 .Get<WordListenerConfiguration>();

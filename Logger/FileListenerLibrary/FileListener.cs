@@ -10,8 +10,11 @@ namespace FileListenerLibrary
         public string MinLogLevel { get; set;  }
         public FileListener()
         {
+            string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string sFile = Path.Combine(sCurrentDirectory, @"..\..\..\fileListenerSettings.json");
+            string jsonFile = Path.GetFullPath(sFile);
             IConfigurationBuilder builder = new ConfigurationBuilder()
-                    .AddJsonFile(@"C:\Users\AlgirdasCernevicius\source\repos\dotNET.Training\Logger\FileListenerLibrary\fileListenerSettings.json");
+                    .AddJsonFile(jsonFile);
             var config = builder.Build();
             var fileListenerConfig = config.GetSection(FileListenerConfiguration.SectionName)
                 .Get<FileListenerConfiguration>();
