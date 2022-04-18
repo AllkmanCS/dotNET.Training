@@ -19,8 +19,9 @@ namespace SensorMonitoring.WPF
     {
         ISensorConfigurationReader _jsonCreator = ConfigurationReaderCreator.CreateConfigurationReader(SensorConfigurationFileTypes.Json);
         ISensorConfigurationReader _xmlCreator = ConfigurationReaderCreator.CreateConfigurationReader(SensorConfigurationFileTypes.Xml);
-        private string _jsonFileName = @"C:\Users\AlgirdasCernevicius\source\repos\dotNET.Training\SensorMonitoring\Sensors.DAL\Data\jsonSettings.json";
-        private string _xmlFileName = @"C:\Users\AlgirdasCernevicius\source\repos\dotNET.Training\SensorMonitoring\Sensors.DAL\Data\xmlSettings.xml";
+
+        private const string JsonFileName = @"..\..\..\..\Sensors.DAL\Data\jsonSettings.json";
+        private const string XmlFileName = @"..\..\..\..\Sensors.DAL\Data\xmlSettings.xml";
         private ObservableCollection<Sensor> _sensors = new ObservableCollection<Sensor>();
         private ObservableCollection<ISensorConfigurationReader> _sensorSettings = new ObservableCollection<ISensorConfigurationReader>();
         private SensorsSettings _selectedSensorSettings = new SensorsSettings();
@@ -52,7 +53,7 @@ namespace SensorMonitoring.WPF
         {
             var sensor = sender as Sensor;
             if (sensor != null)
-            _sensors.Remove(sensor);
+                _sensors.Remove(sensor);
         }
         private void AddSensor(object sender, RoutedEventArgs e)
         {
@@ -72,14 +73,24 @@ namespace SensorMonitoring.WPF
 
             if (sensorSettingsLabel.Content.ToString() == "Json Settings")
             {
-                _selectedSensorSettings = _jsonCreator.Read(_jsonFileName);
-                Console.WriteLine("JSON");
+                _selectedSensorSettings = _jsonCreator.Read(GetJsonFile());
             }
             if (sensorSettingsLabel.Content.ToString() == "Xml Settings")
             {
-                _selectedSensorSettings = _xmlCreator.Read(_xmlFileName);
-                Console.WriteLine("XML");
+                _selectedSensorSettings = _xmlCreator.Read(GetXmlFile());
             }
+        }
+        private string GetJsonFile()
+        {
+            string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string jsonFile = Path.Combine(sCurrentDirectory, JsonFileName);
+            return Path.GetFullPath(jsonFile);
+        }
+        private string GetXmlFile()
+        {
+            string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string xmlFile = Path.Combine(sCurrentDirectory, XmlFileName);
+            return Path.GetFullPath(xmlFile);
         }
     }
 }
