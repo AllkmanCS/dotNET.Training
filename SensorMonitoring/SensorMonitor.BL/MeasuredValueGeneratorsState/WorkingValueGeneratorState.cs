@@ -9,9 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SensorMonitor.BL.MeasuredValueGenerators
+namespace SensorMonitor.BL.MeasuredValueGeneratorsState
 {
-    internal class WorkingValueGenerator : IValueGenerator
+    public class WorkingValueGeneratorState : IValueGeneratorState
     {
         public double GetMeasuredValue(double value)
         {

@@ -1,11 +1,11 @@
 ﻿using SensorMonitor.BL;
-using Sensors.DAL.Configurations;
 using Sensors.DAL.Data;
 using Sensors.DAL.Enums;
 using Sensors.DAL.Factory;
 using Sensors.DAL.Factory.Factory;
 using System;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,11 +17,10 @@ namespace SensorMonitoring.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        ISensorConfigurationReader _jsonCreator = ConfigurationReaderCreator.CreateConfigurationReader(SensorConfigurationFileTypes.Json);
-        ISensorConfigurationReader _xmlCreator = ConfigurationReaderCreator.CreateConfigurationReader(SensorConfigurationFileTypes.Xml);
-
+        private ISensorConfigurationReader _jsonCreator = ConfigurationReaderCreator.CreateConfigurationReader(SensorConfigurationFileTypes.Json);
+        private ISensorConfigurationReader _xmlCreator = ConfigurationReaderCreator.CreateConfigurationReader(SensorConfigurationFileTypes.Xml);
         private const string JsonFileName = @"..\..\..\..\Sensors.DAL\Data\jsonSettings.json";
-        private const string XmlFileName = @"..\..\..\..\Sensors.DAL\Data\xmlSettings.xml";
+        private const string XmlFileName  = @"..\..\..\..\Sensors.DAL\Data\xmlSettings.xml";
         private ObservableCollection<Sensor> _sensors = new ObservableCollection<Sensor>();
         private ObservableCollection<ISensorConfigurationReader> _sensorSettings = new ObservableCollection<ISensorConfigurationReader>();
         private SensorsSettings _selectedSensorSettings = new SensorsSettings();
@@ -46,7 +45,10 @@ namespace SensorMonitoring.WPF
         {
             foreach (var item in _sensors)
             {
-                item.SwitchMode();
+                item.SwitchMode(item.SensorMode);
+                //Button button = sender as Button;
+                //DataRowView drv = button.DataContext as DataRowView;
+                //drv["SensorMode"] = item.SensorType;
             }
         }
         private void DeleteSensor(object sender, RoutedEventArgs e)

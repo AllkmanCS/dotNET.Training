@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SensorMonitoring.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="900" Initialized="Window_Initialized">
+        Title="MainWindow" Height="450" Width="1200" Initialized="Window_Initialized">
     <Grid x:Name="myGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="320"></ColumnDefinition>
@@ -42,11 +42,11 @@
                     <DataGridTextColumn Binding="{Binding SensorType}" Header="Sensor Type" />
                     <DataGridTextColumn Binding="{Binding MeasuredValue}" Header="Sensor Value"/>
                     <DataGridTextColumn Binding="{Binding MeasurementInterval}" Header="Measurement Interval"/>
-                    <DataGridTextColumn Binding="{Binding SensorMode}" Header="Sensor Mode"/>
-                    <DataGridTemplateColumn>
+                    <!--<DataGridTextColumn Binding="{Binding SensorMode}" Header="Sensor Mode"/>-->
+                    <DataGridTemplateColumn Width="120">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Click="ChangeSensorMode" >Change sensor Mode</Button>
+                                <Button Content="{Binding SensorMode}" Click="ChangeSensorMode" Width="100" HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
