@@ -7,11 +7,11 @@ namespace SensorMonitor.BL.MeasuredValueGeneratorsState
 {
     public class WorkingValueGeneratorState : IValueGeneratorState
     {
-        public double GetMeasuredValue(TimeSpan timeSpan)
+        public double GetMeasuredValue(int measurementInterval)
         {
             while (true)
             {
-                var delayTask = Task.Delay(timeSpan.Milliseconds);
+                var delayTask = Task.Delay(measurementInterval);
                 var random = new Random();
                 double value = random.NextDouble() * 1000;
                 return value;

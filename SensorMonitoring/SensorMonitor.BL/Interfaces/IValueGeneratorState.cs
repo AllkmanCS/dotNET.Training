@@ -10,6 +10,6 @@ namespace SensorMonitor.BL.Interfaces
 {
     public interface IValueGeneratorState
     {
-        double GetMeasuredValue(TimeSpan timeSpan);
+        double GetMeasuredValue(int measurementInterval);
     }
 }

@@ -19,8 +19,8 @@ namespace SensorMonitor.BL
         private IValueGeneratorState _generator;
         private Guid _id = Guid.NewGuid();
         public Guid Id { get { return _id; } set { _id = value; } }
-        private TimeSpan _measurementInterval;
-        public TimeSpan MeasurementInterval { get { return _measurementInterval; } set { _measurementInterval = value; } }
+        private int _measurementInterval;
+        public int MeasurementInterval { get { return _measurementInterval; } set { _measurementInterval = value; } }
         private SensorTypes _sensorType;
         public SensorTypes SensorType { get { return _sensorType; } set { _sensorType = value; } }
         public event PropertyChangedEventHandler? PropertyChanged;
