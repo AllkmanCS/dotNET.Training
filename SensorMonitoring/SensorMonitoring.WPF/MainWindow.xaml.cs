@@ -46,9 +46,6 @@ namespace SensorMonitoring.WPF
             foreach (var item in _sensors)
             {
                 item.SwitchMode(item.SensorMode);
-                //Button button = sender as Button;
-                //DataRowView drv = button.DataContext as DataRowView;
-                //drv["SensorMode"] = item.SensorType;
             }
         }
         private void DeleteSensor(object sender, RoutedEventArgs e)

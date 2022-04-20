@@ -1,18 +1,22 @@
 ﻿using SensorMonitor.BL.Interfaces;
-using Sensors.DAL.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SensorMonitor.BL.MeasuredValueGeneratorsState
 {
     public class CalibrationValueGeneratorState : IValueGeneratorState
     {
-        public double GetMeasuredValue(double value)
+        public double GetMeasuredValue(TimeSpan timeSpan)
         {
-            return (int)value ++;
+            while (true)
+            {
+                var delayTask = Task.Delay(timeSpan.Milliseconds);
+                double value = 0;
+                value++;
+
+                return value;
+            }
         }
     }
 }

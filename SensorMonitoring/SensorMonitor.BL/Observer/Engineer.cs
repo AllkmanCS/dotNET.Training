@@ -13,7 +13,7 @@ namespace SensorMonitor.BL.Observer
 
         private void Sensor_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            Console.WriteLine("Measured Value has changed.");
+            Console.WriteLine($"Measured Value has changed to.");
         }
     }
 }

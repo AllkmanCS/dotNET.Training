@@ -12,7 +12,7 @@ namespace Sensors.DAL.Configurations
         public Guid Id { get; set; }
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public SensorTypes SensorType { get; set; }
-        public int MeasurementInterval { get; set; }
+        public TimeSpan MeasurementInterval { get; set; }
         
     }
 }

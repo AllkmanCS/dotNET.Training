@@ -5,12 +5,13 @@ using Sensors.DAL.Enums;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace SensorMonitor.BL
 {
-    public class Sensor : ISensor
+    public class Sensor : ISensor, INotifyPropertyChanged
     {
         //setting default sesnor state
         private SensorModes _sensorMode = SensorModes.Idle;
@@ -18,13 +19,13 @@ namespace SensorMonitor.BL
         private IValueGeneratorState _generator;
         private Guid _id = Guid.NewGuid();
         public Guid Id { get { return _id; } set { _id = value; } }
-        private int _measurementInterval;
-        public int MeasurementInterval { get { return _measurementInterval; } set { _measurementInterval = value; } }
+        private TimeSpan _measurementInterval;
+        public TimeSpan MeasurementInterval { get { return _measurementInterval; } set { _measurementInterval = value; } }
         private SensorTypes _sensorType;
         public SensorTypes SensorType { get { return _sensorType; } set { _sensorType = value; } }
         public event PropertyChangedEventHandler? PropertyChanged;
-        private int _measuredValue;
-        public int MeasuredValue
+        private double _measuredValue;
+        public double MeasuredValue
         {
             get => _measuredValue;
             set
@@ -33,6 +34,7 @@ namespace SensorMonitor.BL
                 OnPropertyChanged();
             }
         }
+        private ObservableCollection<IObserver> _observers = new ObservableCollection<IObserver>();
 
         public Sensor(SensorConfiguration configuration)
         {
@@ -41,24 +43,24 @@ namespace SensorMonitor.BL
             SensorType = configuration.SensorType;
             SensorMode = _sensorMode;
         }
-        public void SwitchMode(SensorModes sensorMode)
+        public async Task SwitchMode(SensorModes sensorMode)
         {
             switch (sensorMode)
             {
                 case SensorModes.Idle:
                     _sensorMode = SensorModes.Calibration;
                     _generator = new CalibrationValueGeneratorState();
-                    _generator.GetMeasuredValue(_measuredValue);
+                    _measuredValue = _generator.GetMeasuredValue(_measurementInterval);
                     break;
                 case SensorModes.Calibration:
                     _sensorMode = SensorModes.Working;
                     _generator = new WorkingValueGeneratorState();
-                    _generator.GetMeasuredValue(_measuredValue);
+                    _measuredValue = _generator.GetMeasuredValue(_measurementInterval);
                     break;
                 case SensorModes.Working:
                     _sensorMode = SensorModes.Idle;
                     _generator = new IdleValueGeneratorState();
-                    _generator.GetMeasuredValue(_measuredValue);
+                    _measuredValue = _generator.GetMeasuredValue(_measurementInterval);
                     break;
                 default:
                     break;
@@ -71,17 +73,22 @@ namespace SensorMonitor.BL
 
         public void Attach(IObserver observer)
         {
-            throw new NotImplementedException();
+            _observers.Add(observer);
         }
 
         public void Detach(IObserver observer)
         {
-            throw new NotImplementedException();
+            if (observer != null)
+            {
+                _observers.Remove(observer);
+            }
         }
-
         public void Notify()
         {
-            throw new NotImplementedException();
+            foreach (var item in _observers)
+            {
+                item.Update(this);
+            }
         }
     }
 }
