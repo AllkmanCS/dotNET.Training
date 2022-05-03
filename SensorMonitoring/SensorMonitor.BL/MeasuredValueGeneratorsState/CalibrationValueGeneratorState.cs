@@ -11,18 +11,23 @@ namespace SensorMonitor.BL.MeasuredValueGeneratorsState
         {
 
         }
-        public async Task<double> GetMeasuredValue(int measurementInterval)
+        //public async Task<double> GetMeasuredValue(int measurementInterval)
+        //{
+        //    while (true)
+        //    {
+
+        //        var delayTask = Task.Delay(measurementInterval);
+
+        //        double value = 0;
+        //        value++;
+
+        //        return value;
+        //    }
+        //}
+
+        double IValueGeneratorState.GetMeasuredValue(int measurementInterval)
         {
-            while (true)
-            {
-
-                var delayTask = Task.Delay(measurementInterval);
-
-                double value = 0;
-                value++;
-
-                return value;
-            }
+            throw new NotImplementedException();
         }
     }
 }

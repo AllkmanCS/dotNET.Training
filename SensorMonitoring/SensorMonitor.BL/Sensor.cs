@@ -24,7 +24,7 @@ namespace SensorMonitor.BL
                 Console.WriteLine("State: " + _state.GetType().Name);
             }
         }
-
+        private Sensor Sensorss { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
         //setting default sesnor state
         private SensorModes _sensorMode = SensorModes.Idle;
@@ -78,7 +78,7 @@ namespace SensorMonitor.BL
             {
                 case SensorModes.Idle:
                     _sensorMode = SensorModes.Calibration;
-                    _generator = new CalibrationValueGeneratorState();
+                    _generator = new CalibrationValueGeneratorState(Sensorss);
                     _measuredValue = _generator.GetMeasuredValue(_measurementInterval);
                     break;
                 case SensorModes.Calibration:
