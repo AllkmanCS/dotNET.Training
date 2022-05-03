@@ -1,5 +1,6 @@
 ﻿using SensorMonitor.BL.Interfaces;
 using SensorMonitor.BL.MeasuredValueGeneratorsState;
+using SensorMonitor.BL.State;
 using Sensors.DAL.Configurations;
 using Sensors.DAL.Enums;
 using System;
@@ -13,9 +14,37 @@ namespace SensorMonitor.BL
 {
     public class Sensor : ISensor, INotifyPropertyChanged
     {
+        private SensorState _state;
+        public SensorState SensorState
+        {
+            get { return _state; }
+            set
+            {
+                _state = value;
+                Console.WriteLine("State: " + _state.GetType().Name);
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
         //setting default sesnor state
         private SensorModes _sensorMode = SensorModes.Idle;
-        public SensorModes SensorMode { get { return _sensorMode; } set { _sensorMode = value; } }
+        public SensorModes SensorMode 
+        { 
+            get 
+            { 
+                return _sensorMode; 
+            } 
+            set 
+            { 
+                _sensorMode = value;
+                NotifyPropertyChanged(_sensorMode);
+            } 
+        }
+
+        private void NotifyPropertyChanged(SensorModes sensorMode)
+        {
+        }
+
         private IValueGeneratorState _generator;
         private Guid _id = Guid.NewGuid();
         public Guid Id { get { return _id; } set { _id = value; } }
@@ -23,7 +52,6 @@ namespace SensorMonitor.BL
         public int MeasurementInterval { get { return _measurementInterval; } set { _measurementInterval = value; } }
         private SensorTypes _sensorType;
         public SensorTypes SensorType { get { return _sensorType; } set { _sensorType = value; } }
-        public event PropertyChangedEventHandler? PropertyChanged;
         private double _measuredValue;
         public double MeasuredValue
         {
@@ -36,12 +64,13 @@ namespace SensorMonitor.BL
         }
         private ObservableCollection<IObserver> _observers = new ObservableCollection<IObserver>();
 
-        public Sensor(SensorConfiguration configuration)
+        public Sensor(SensorConfiguration configuration, SensorState state)
         {
             Id = Guid.NewGuid();
             MeasurementInterval = configuration.MeasurementInterval;
             SensorType = configuration.SensorType;
             SensorMode = _sensorMode;
+            _state = state;
         }
         public async Task SwitchMode(SensorModes sensorMode)
         {
@@ -65,6 +94,11 @@ namespace SensorMonitor.BL
                 default:
                     break;
             }
+        }
+
+        public void Request()
+        {
+            _state.Handle(this);
         }
         protected virtual void OnPropertyChanged()
         {

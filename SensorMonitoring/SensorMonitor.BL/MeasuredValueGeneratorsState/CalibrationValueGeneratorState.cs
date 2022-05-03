@@ -7,11 +7,17 @@ namespace SensorMonitor.BL.MeasuredValueGeneratorsState
 {
     public class CalibrationValueGeneratorState : IValueGeneratorState
     {
-        public double GetMeasuredValue(int measurementInterval)
+        public CalibrationValueGeneratorState(Sensor sensor)
+        {
+
+        }
+        public async Task<double> GetMeasuredValue(int measurementInterval)
         {
             while (true)
             {
+
                 var delayTask = Task.Delay(measurementInterval);
+
                 double value = 0;
                 value++;
 

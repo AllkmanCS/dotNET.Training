@@ -42,7 +42,6 @@
                     <DataGridTextColumn Binding="{Binding SensorType}" Header="Sensor Type" />
                     <DataGridTextColumn Binding="{Binding MeasuredValue}" Header="Sensor Value"/>
                     <DataGridTextColumn Binding="{Binding MeasurementInterval}" Header="Measurement Interval"/>
-                    <!--<DataGridTextColumn Binding="{Binding SensorMode}" Header="Sensor Mode"/>-->
                     <DataGridTemplateColumn Width="120">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
