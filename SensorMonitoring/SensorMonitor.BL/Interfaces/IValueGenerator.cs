@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace SensorMonitor.BL.Interfaces
 {
-    public interface IValueGeneratorState
+    public interface IValueGenerator
     {
         double GetMeasuredValue(int measurementInterval);
+        void Handle(Sensor sensor);
     }
 }

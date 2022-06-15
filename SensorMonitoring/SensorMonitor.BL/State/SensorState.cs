@@ -8,6 +8,6 @@ namespace SensorMonitor.BL.State
 {
     public abstract class SensorState
     {
-        public abstract void Handle(Sensor context);
+        public abstract void Handle(Sensor sensor);
     }
 }

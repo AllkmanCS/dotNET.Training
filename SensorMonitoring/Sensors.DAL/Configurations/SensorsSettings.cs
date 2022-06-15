@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Sensors.DAL.Data
+namespace Sensors.DAL.Configurations
 {
     [XmlRoot("sensors")]
     public class SensorsSettings
@@ -19,9 +19,6 @@ namespace Sensors.DAL.Data
         {
             Sensors = sensors;
         }
-        public SensorsSettings()
-        {
-
-        }
+        public SensorsSettings() { }
     }
 }

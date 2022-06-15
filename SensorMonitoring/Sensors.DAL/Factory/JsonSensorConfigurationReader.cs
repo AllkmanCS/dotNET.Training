@@ -1,5 +1,4 @@
 ﻿using Sensors.DAL.Configurations;
-using Sensors.DAL.Data;
 using Sensors.DAL.Factory.Factory;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -14,15 +13,11 @@ namespace Sensors.DAL.Factory
         {
             _sensorsSettings = sensorsSettings;
         }
-        public JsonSensorConfigurationReader()
-        {
-
-        }
+        public JsonSensorConfigurationReader() { }
         public SensorsSettings Read(string filePath)
         {
-     
             string jsonString = File.ReadAllText(filePath);
-                var list = JsonSerializer.Deserialize<ObservableCollection<SensorConfiguration>>(jsonString)!;
+            var list = JsonSerializer.Deserialize<ObservableCollection<SensorConfiguration>>(jsonString)!;
             _sensorsSettings = new SensorsSettings(list);
             return _sensorsSettings;
         }

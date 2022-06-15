@@ -1,5 +1,8 @@
 ﻿using SensorMonitor.BL;
-using Sensors.DAL.Data;
+using SensorMonitor.BL.Interfaces;
+using SensorMonitor.BL.MeasuredValueGeneratorsState;
+using SensorMonitor.BL.State;
+using Sensors.DAL.Configurations;
 using Sensors.DAL.Enums;
 using Sensors.DAL.Factory;
 using Sensors.DAL.Factory.Factory;
@@ -24,6 +27,9 @@ namespace SensorMonitoring.WPF
         private ObservableCollection<Sensor> _sensors = new ObservableCollection<Sensor>();
         private ObservableCollection<ISensorConfigurationReader> _sensorSettings = new ObservableCollection<ISensorConfigurationReader>();
         private SensorsSettings _selectedSensorSettings = new SensorsSettings();
+        private SensorState _sensorState;
+        private IValueGenerator _generator;
+
         public ObservableCollection<ISensorConfigurationReader> SensorSettings
         {
             get
@@ -41,6 +47,18 @@ namespace SensorMonitoring.WPF
         {
             this.sensorsDataGrid.ItemsSource = _sensors;
         }
+        private void AddSensor(object sender, RoutedEventArgs e)
+        {
+            string sensorTypeName = sensorType.Text;
+
+            foreach (var sensorType in _selectedSensorSettings.Sensors)
+            {
+                if (sensorType.SensorType == (SensorTypes)Enum.Parse(typeof(SensorTypes), sensorTypeName))
+                {
+                    _sensors.Add(new Sensor(sensorType));
+                }
+            }
+        }
         private void ChangeSensorMode(object sender, RoutedEventArgs e)
         {
             foreach (var item in _sensors)
@@ -53,18 +71,6 @@ namespace SensorMonitoring.WPF
             var sensor = sender as Sensor;
             if (sensor != null)
                 _sensors.Remove(sensor);
-        }
-        private void AddSensor(object sender, RoutedEventArgs e)
-        {
-            string sensorTypeName = sensorType.Text;
-
-            foreach (var sensorType in _selectedSensorSettings.Sensors)
-            {
-                if (sensorType.SensorType == (SensorTypes)Enum.Parse(typeof(SensorTypes), sensorTypeName))
-                {
-                    _sensors.Add(new Sensor(sensorType));
-                }
-            }
         }
         private void sensorSettings_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

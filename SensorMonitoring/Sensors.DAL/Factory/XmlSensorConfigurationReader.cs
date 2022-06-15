@@ -1,8 +1,5 @@
 ﻿using Sensors.DAL.Configurations;
-using Sensors.DAL.Data;
 using Sensors.DAL.Factory.Factory;
-using System;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -15,10 +12,7 @@ namespace Sensors.DAL.Factory
         {
             _sensorsSettings = sensorsSettings;
         }
-        public XmlSensorConfigurationReader()
-        {
-
-        }
+        public XmlSensorConfigurationReader() { }
         public SensorsSettings Read(string filePath)
         {
             using (var stream = File.OpenRead(filePath))

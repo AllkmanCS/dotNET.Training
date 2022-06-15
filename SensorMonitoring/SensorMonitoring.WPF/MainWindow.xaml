@@ -40,7 +40,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Header="Sensor Id" />
                     <DataGridTextColumn Binding="{Binding SensorType}" Header="Sensor Type" />
-                    <DataGridTextColumn Binding="{Binding MeasuredValue}" Header="Sensor Value"/>
+                    <DataGridTextColumn Binding="{Binding MeasuredValue, UpdateSourceTrigger=Default}" Header="Sensor Value"/>
                     <DataGridTextColumn Binding="{Binding MeasurementInterval}" Header="Measurement Interval"/>
                     <DataGridTemplateColumn Width="120">
                         <DataGridTemplateColumn.CellTemplate>

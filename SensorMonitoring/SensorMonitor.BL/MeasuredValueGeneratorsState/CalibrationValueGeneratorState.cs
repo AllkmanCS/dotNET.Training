@@ -1,33 +1,27 @@
 ﻿using SensorMonitor.BL.Interfaces;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using SensorMonitor.BL.State;
+using System.Timers;
 
 namespace SensorMonitor.BL.MeasuredValueGeneratorsState
 {
-    public class CalibrationValueGeneratorState : IValueGeneratorState
+    public class CalibrationValueGeneratorState : SensorState, IValueGenerator
     {
-        public CalibrationValueGeneratorState(Sensor sensor)
+        public override void Handle(Sensor sensor)
         {
-
+            sensor.SensorState = new WorkingValueGeneratorState();
         }
-        //public async Task<double> GetMeasuredValue(int measurementInterval)
-        //{
-        //    while (true)
-        //    {
-
-        //        var delayTask = Task.Delay(measurementInterval);
-
-        //        double value = 0;
-        //        value++;
-
-        //        return value;
-        //    }
-        //}
-
-        double IValueGeneratorState.GetMeasuredValue(int measurementInterval)
+        public double GetMeasuredValue(int measurementInterval)
         {
-            throw new NotImplementedException();
+            double value = 0;
+            Timer timer = new Timer();
+            timer.Interval = measurementInterval;
+            timer.Elapsed += (s, e) =>
+            {
+                value++;
+            };
+            timer.AutoReset = true;
+            timer.Enabled = true;
+            return value;
         }
     }
 }
